@@ -12,6 +12,7 @@ import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
+from flask_sqlalchemy import SQLAlchemy
 
 #################################################
 # Flask Setup
@@ -26,11 +27,11 @@ try:
     db_uri = os.environ['DATABASE_URL']
 except KeyError:
 
-pg_user = 'postgres'
-db_name = 'Gamers'
+    pg_user = 'postgres'
+    db_name = 'Gamers'
 
-connection_string = f"{pg_user}:Jennifer11@localhost:5432/{db_name}"
-db_uri = create_engine(f'postgresql://{connection_string}')
+    connection_string = f"{pg_user}:Jennifer11@localhost:5432/{db_name}"
+    db_uri = create_engine(f'postgresql://{connection_string}')
 
 
 print(db_uri)
@@ -56,9 +57,8 @@ class user_input(db.Model):
 
 @app.before_first_request
 def setup():
-    
-
-# create route that renders index.html template
+    pass
+    # create route that renders index.html template
 
 
 @app.route("/")
@@ -69,44 +69,46 @@ def home():
 # Query the database and send the jsonified results
 @app.route("/send", methods=["GET", "POST"])
 def send():
-    if request.method == "POST":
-        u_name = request.form["UserName"]
-        u_age = request.form["UserAge"]
-        u_hours = request.form["UserHours"]
+    # if request.method == "POST":
+    #     u_name = request.form["UserName"]
+    #     u_age = request.form["UserAge"]
+    #     u_hours = request.form["UserHours"]
 
-        pet = Pet(name=name, lat=lat, lon=lon)
-        db.session.add(pet)
-        db.session.commit()
-        return redirect("/", code=302)
+    #     pet = Pet(name=name, lat=lat, lon=lon)
+    #     db.session.add(pet)
+    #     db.session.commit()
+    #     return redirect("/", code=302)
 
-    return render_template("form.html")
+    # return render_template("form.html")
+    pass
 
 
 @app.route("/api/pals")
 def pals():
-    results = db.session.query(Pet.name, Pet.lat, Pet.lon).all()
+    # results = db.session.query(Pet.name, Pet.lat, Pet.lon).all()
 
-    hover_text = [result[0] for result in results]
-    lat = [result[1] for result in results]
-    lon = [result[2] for result in results]
+    # hover_text = [result[0] for result in results]
+    # lat = [result[1] for result in results]
+    # lon = [result[2] for result in results]
 
-    pet_data = [{
-        "type": "scattergeo",
-        "locationmode": "USA-states",
-        "lat": lat,
-        "lon": lon,
-        "text": hover_text,
-        "hoverinfo": "text",
-        "marker": {
-            "size": 50,
-            "line": {
-                "color": "rgb(8,8,8)",
-                "width": 1
-            },
-        }
-    }]
+    # pet_data = [{
+    #     "type": "scattergeo",
+    #     "locationmode": "USA-states",
+    #     "lat": lat,
+    #     "lon": lon,
+    #     "text": hover_text,
+    #     "hoverinfo": "text",
+    #     "marker": {
+    #         "size": 50,
+    #         "line": {
+    #             "color": "rgb(8,8,8)",
+    #             "width": 1
+    #         },
+    #     }
+    # }]
 
-    return jsonify(pet_data)
+    # return jsonify(pet_data)
+    pass
 
 
 if __name__ == "__main__":
