@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Pet Pals!</title>
+    <title>Game On</title>
 
     <!-- Boostrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -17,17 +17,30 @@
 <body>
     <div class="container">
         <div class="jumbotron" style="text-align: center">
-            <h1>Pet Pal</h1>
-            <p>Find your pet a pal!</p>
-            <h2><a href="/send">Add your pet here!</a></h2>
+            <h1>Are you the average gamer?</h1>
+            <p>Let's figure it out</p>
+            <h2><a href="/send">Add your personal gamer stats here!</a></h2>
         </div>
 
         <div class="row">
             <div class="col-md-12">
-                <h2>Look at all of the current pet pals!</h2>
+                <h2>Look at all your friends!</h2>
                 <div id="plot"></div>
             </div>
         </div>
+        {% for gamers in all_names %}
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">{{ gamers }}</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
 
     </div>
 
