@@ -1,5 +1,6 @@
 # import necessary libraries
 import os
+import numpy as np
 from flask import (
     Flask,
     render_template,
@@ -7,7 +8,10 @@ from flask import (
     request,
     redirect)
 
-from flask_sqlalchemy import SQLAlchemy
+import sqlalchemy
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine
 
 #################################################
 # Flask Setup
@@ -21,7 +25,13 @@ app = Flask(__name__)
 try:
     db_uri = os.environ['DATABASE_URL']
 except KeyError:
-    db_uri = "postgres://postgres:postgres@localhost:5432/pet_pals"
+
+pg_user = 'postgres'
+db_name = 'Gamers'
+
+connection_string = f"{pg_user}:Jennifer11@localhost:5432/{db_name}"
+db_uri = create_engine(f'postgresql://{connection_string}')
+
 
 print(db_uri)
 app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
@@ -29,13 +39,16 @@ app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 db = SQLAlchemy(app)
 
 # Create class to frame each pet instance
-class Pet(db.Model):
-    __tablename__ = 'pets'
+
+
+class user_input(db.Model):
+    __tablename__ = ''
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64))
-    lat = db.Column(db.Float)
-    lon = db.Column(db.Float)
+    u_name = db.Column(db.String(64))
+    u_age = db.Column(db.Float)
+    u_hours = db.Column(db.Float)
+    u_gender = db.Column(db.String(64))
 
     def __repr__(self):
         return '<Pet %r>' % (self.name)
@@ -43,11 +56,11 @@ class Pet(db.Model):
 
 @app.before_first_request
 def setup():
-    # Recreate database each time for demo
-    db.drop_all()
-    db.create_all()
+    
 
 # create route that renders index.html template
+
+
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -57,9 +70,9 @@ def home():
 @app.route("/send", methods=["GET", "POST"])
 def send():
     if request.method == "POST":
-        name = request.form["petName"]
-        lat = request.form["petLat"]
-        lon = request.form["petLon"]
+        u_name = request.form["UserName"]
+        u_age = request.form["UserAge"]
+        u_hours = request.form["UserHours"]
 
         pet = Pet(name=name, lat=lat, lon=lon)
         db.session.add(pet)
