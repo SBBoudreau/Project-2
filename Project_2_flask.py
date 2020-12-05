@@ -40,7 +40,6 @@ engine = create_engine(f'postgresql://{connection_string}')
 # connection_string = f"{pg_user}:Jennifer11@localhost:5432/{db_name}"
 # engine = create_engine(f'postgresql://{connection_string}')
 
-
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 
@@ -68,7 +67,6 @@ def welcome():
     return (
         f"Available Routes:<br/>"
         f"/api/v1.0/gamers<br/>"
-        f"/api/v1.0/fun<br/>"
     )
 
 
@@ -88,25 +86,6 @@ def revenue_():
     print(all_names)
     # return jsonify(all_names)
     return render_template("index.html", all_names=all_names)
-
-
-@app.route("/api/v1.0/fun")
-def age_():
-    """Return a list movies and where they are streaming"""
-
-    # Query all movies
-    session = Session(engine)
-    results = session.query(age).all()
-
-    # close the session to end the communication with the database
-    session.close()
-
-    # Convert list of tuples into normal list
-    # all_names = list(np.ravel(results))
-    # print(all_names)
-
-    # return jsonify(all_names)
-    return render_template("index.html", all_names=results)
 
 
 if __name__ == '__main__':
