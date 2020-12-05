@@ -1,0 +1,37 @@
+Form dropdowns
+
+First Name
+
+Last Name
+
+Age
+18-25
+26-35
+36-45
+46-60
+Over 60
+All Ages
+
+Gender
+
+Average hours played per week?
+
+from IP address we are going to determine:
+latitude
+longitude
+city
+state
+country
+
+Favorite Game
+(dropdown from top ten)
+dota_2
+counter_strike
+terraria
+postal
+gta
+fallout_4
+life_is_strange
+battlegrounds
+hitman_2
+among_us
