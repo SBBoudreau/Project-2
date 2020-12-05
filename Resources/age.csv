@@ -1,7 +1,7 @@
-﻿"Category","Average Weekly Gameplay Hours per Age Group (2019)"
-"18-25","7.78"
-"26-35","8.21"
-"36-45","7.76"
-"46-60","6.32"
-"Over 60","5.63"
-"All Ages","7.11"
+﻿age,avg_hours
+18-25,7.78
+26-35,8.21
+36-45,7.76
+46-60,6.32
+Over 60,5.63
+All Ages,7.11

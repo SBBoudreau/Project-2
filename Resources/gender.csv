@@ -1,6 +1,6 @@
-﻿"Category","Male","Female"
-"US","54%","46%"
-"Japan","34%","66%"
-"UK","51%","49%"
-"South Korea","63%","37%"
-"China","73%","27%"
+﻿category,male,female
+US,54%,46%
+Japan,34%,66%
+UK,51%,49%
+South Korea,63%,37%
+China,73%,27%

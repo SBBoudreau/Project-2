@@ -1,11 +1,11 @@
-﻿"Category","Average Weekly Gameplay Hours (2019)"
-"Germany","7.98"
-"US","7.61"
-"Singapore","7.44"
-"India","6.97"
-"India","6.92"
-"Japan","6.88"
-"Italy","6.79"
-"UK","6.76"
-" South Korea","6.69"
-"Global","7.11"
+﻿country,avg_hours
+Germany,7.98
+US,7.61
+Singapore,7.44
+India,6.97
+India,6.92
+Japan,6.88
+Italy,6.79
+UK,6.76
+ South Korea,6.69
+Global,7.11
