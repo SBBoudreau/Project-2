@@ -12,11 +12,18 @@ Age
 Over 60
 All Ages
 
-Gender
+Gender - dynamic, highlight gender selected
+Male
+Female
 
 Average hours played per week?
+You need sunshine!!
+You live in your Mom's basement?
+Does Mom still change your diapers?
+You owe your Mom half of the power bill.
 
-from IP address we are going to determine:
+
+from IP address we are going to scrape:
 latitude
 longitude
 city
@@ -35,3 +42,14 @@ life_is_strange
 battlegrounds
 hitman_2
 among_us
+
+Map the hours average by country
+
+On average, how much do you spend on gaming?
+Calc gamers/revenue to get revenue per gamer
+SELECT Revenue table - add calc to Jupyer and Postgres
+
+add lifetime users chart from Steam!
+
+
+
