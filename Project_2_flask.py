@@ -15,20 +15,20 @@ from flask import Flask, render_template
 #################################################
 # Jennifer Postgres
 #################################################
-pg_user = 'postgres'
-db_name = 'Gamers'
-
-connection_string = f"{pg_user}:Jennifer11@localhost:5432/{db_name}"
-engine = create_engine(f'postgresql://{connection_string}')
-
-#################################################
-# Michael Postgres
-#################################################
 # pg_user = 'postgres'
 # db_name = 'Gamers'
 
 # connection_string = f"{pg_user}:Jennifer11@localhost:5432/{db_name}"
 # engine = create_engine(f'postgresql://{connection_string}')
+
+#################################################
+# Michael Postgres
+#################################################
+pg_user = 'postgres'
+db_name = 'Gamers'
+
+connection_string = f"{pg_user}:bootcampDavid@1942@localhost:5432/{db_name}"
+engine = create_engine(f'postgresql://{connection_string}')
 
 
 #################################################
