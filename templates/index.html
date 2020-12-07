@@ -21,8 +21,27 @@
       <p>Let's figure it out</p>
       <h2><a href="/send">Add your personal gamer stats here!</a></h2>
     </div>
-
-    <select name="" id="">
+    <!-- return back the value in our form, route gamerChoice -->
+    <form method = "POST" action = "/gamerChoice" role = "form" name = "choiceForm">
+      <label class="col-form-label" for="inputDefault">Name</label>
+      <input name = "gamerName" type="text" class="form-control" placeholder="ex: Jane Doe" id="inputDefault">
+      <br>
+      <legend>Gender</legend>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Female"
+            checked="">
+          Female
+        </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="Male">
+          Male
+        </label>
+      </div>
+    <br>
+    <select name = "id">
       {% for age in all_names['age'] %}
 
       <!-- <div class="row">
@@ -37,11 +56,15 @@
 
 
 
-      <option value="{{ age }}">{{age}}</option>
+      <option name = "{{ age }}" value = "{{ age }}">{{age}}</option>
 
 
       {% endfor %}
     </select>
+    <br>
+    <input type = 'submit' value = 'submit' class = 'btn btn-default'>
+    
+  </form>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>

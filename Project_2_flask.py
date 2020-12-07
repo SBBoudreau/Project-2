@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask import Flask, render_template
 app = Flask(__name__)
 
@@ -65,19 +65,36 @@ engine = db.engine
 # Flask Routes
 #################################################
 
+@app.route("/gamerChoice", methods = ["POST"])
+def gamerChoice():
+    choice = request.form["id"]
+    print(choice)
+    gamerName = request.form["gamerName"]
+    print(gamerName)
+    genderOption = request.form["optionsRadios"]
+    print(genderOption)
+    #do another query to pull data associated with the age range choice
+
+ # Query all gamer data
+    session = Session(engine)
+    df = pd.read_sql_query("SELECT * FROM age", engine)
+    all_names = df.to_dict(orient="list")
+
+    # close the session to end the communication with the database
+    session.close()
+
+    # Convert list of tuples into normal list
+    # all_names = list(np.ravel(results))
+    print(all_names)
+    # return jsonify(all_names)
+    return render_template("index.html", all_names=all_names)
+
+
+
 @app.route("/")
-def welcome():
-    """List all available api routes."""
-    return (
-        f"Available Routes:<br/>"
-        f"/api/v1.0/gamers<br/>"
-    )
-
-
-@app.route("/api/v1.0/gamers")
 def revenue_():
     """Return a list of all movie names"""
-
+ 
     # Query all gamer data
     # session = Session(engine)
     df = pd.read_sql_query("SELECT * FROM age", engine)
