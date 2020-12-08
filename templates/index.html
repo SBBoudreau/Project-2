@@ -25,30 +25,36 @@
 
     <div class="row margin-top-50">
       <div class="col-md-2">
-        <form method="POST" action="/gamerChoice" role="form" name="choiceForm">
-          <label class="col-form-label" for="inputDefault">Name</label>
-          <input name="gamerName" type="text" class="form-control" placeholder="ex: Jane Doe" id="inputDefault">
-          <br>
-          <label class="col-form-label" for="inputDefault">Gender</label>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Female"
-                checked="">
-              Female
-            </label>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Enter your gamer info</h4>
           </div>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="Male">
-              Male
-            </label>
-          </div>
-          <br>
-          <label class="col-form-label" for="inputDefault">Age</label><br>
-          <select name="id">
-            {% for age in all_names['age'] %}
+          <div class="panel-body">
 
-            <!-- <div class="row">
+            <form method="POST" action="/gamerChoice" role="form" name="choiceForm">
+              <label class="col-form-label" for="inputDefault">Name</label>
+              <input name="gamerName" type="text" class="form-control" placeholder="ex: Jane Doe" id="inputDefault">
+              <br>
+              <label class="col-form-label" for="inputDefault">Gender</label>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Female"
+                    checked="">
+                  Female
+                </label>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="Male">
+                  Male
+                </label>
+              </div>
+              <br>
+              <label class="col-form-label" for="inputDefault">Age</label><br>
+              <select name="id">
+                {% for age in all_names['age'] %}
+
+                <!-- <div class="row">
       <div class="col-lg-12">
         <div class="card">
           <div class="card-body">
@@ -60,22 +66,26 @@
 
 
 
-            <option name="{{ age }}" value="{{ age }}">{{age}}</option>
+                <option name="{{ age }}" value="{{ age }}">{{age}}</option>
 
 
-            {% endfor %}
-          </select>
-          <br><br>
-          <fieldset class="form-group">
-            <label class="col-form-label" for="inputDefault">How many hours do you play per week?</label>
-            <label for="customRange1">Example range</label>
-            <input type="range" class="custom-range" id="customRange1">
-          </fieldset>
-          <br><br>
-          <fieldset>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </fieldset>
-        </form>
+                {% endfor %}
+              </select>
+              <br><br>
+              <fieldset class="form-group">
+                <label class="col-form-label" for="inputDefault">How many hours do you play per week?</label>
+                <label for="customRange1">Example range</label>
+                <input type="range" class="custom-range" id="customRange1">
+              </fieldset>
+              <br><br>
+              <fieldset>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+
+
       </div>
       <div class="col-md-5">
 
