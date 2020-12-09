@@ -86,7 +86,12 @@ def gamerChoice():
     # Convert list of tuples into normal list
     # all_names = list(np.ravel(results))
     print(all_names)
-    # return jsonify(all_names)
+    if request.method == "POST":
+        # put all your input info into the database
+        # {
+        # 'name':request.form['gamerName'],
+        # 'location':request.form['location']
+        # return jsonify(all_names)
     return render_template("index.html", all_names=all_names)
 
 

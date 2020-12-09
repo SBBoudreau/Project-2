@@ -33,7 +33,7 @@
           </div>
           <div class="panel-body">
 
-            <form method="POST" action="/gamerChoice" role="form" name="choiceForm">
+            <form method="POST" action="/gamerChoice" role="form" name="choiceForm" id="choiceForm">
               <label class="col-form-label" for="inputDefault">Name</label>
               <input name="gamerName" type="text" class="form-control" placeholder="ex: Jane Doe" id="inputDefault">
               <br>
@@ -52,6 +52,7 @@
                 </label>
               </div>
               <br>
+              <input type="hidden" name="location" id="locationInput">
               <label class="col-form-label" for="inputDefault">Age</label><br>
               <select name="id">
                 {% for age in all_names['age'] %}
@@ -83,7 +84,9 @@
               </fieldset>
               <br><br>
               <fieldset>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <!-- <button role="button" type="button" class="btn btn-primary">Submit</button> -->
+                <a href="#" class="btn btn-primary" id="altButton" onclick="console.log('I clicked a button')">Alt
+                  Submit</a>
               </fieldset>
             </form>
           </div>
@@ -114,6 +117,23 @@
 
   <!-- <script src="{{ url_for('static', filename='js/app.js') }}"></script> -->
   <script>console.log("{{ all_names | safe}}")
+
+    d3.select('#altButton').on('click', function () {
+      d3.json('http://api.ipstack.com/check?access_key=a8658fb86540d316778f17b3e00f1463&format=1').then(function (data) {
+        country = data.country_name
+        console.log(country)
+        d3.select('#locationInput').attr('value', country)
+
+
+        // do stuff in here
+
+
+
+
+        // then....
+        d3.select('#choiceForm')
+      })
+    })
 
 
 
