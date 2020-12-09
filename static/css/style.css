@@ -1,0 +1,4 @@
+.jumbotron_image {
+  background-image: url("/static/images/jumbotron_background.jpg");
+  background-size: cover;
+}
