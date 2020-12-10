@@ -16,6 +16,36 @@ d3.select('#buttonId').on('click', function () {
     })
 })
 
+
+// ##################################################################################################
+// ATTEMPT TO USE PLOTLY FOR FIRST GRAPH
+// ##################################################################################################
+// Part 1
+
+// in Plotly, trace refers to an object that contains 1) data to be plotted, and 2) specifications for plotting.
+var trace1 = {
+    x: "age",
+    y: "avg_hours",
+    type: "bar"
+  };
+  
+  // our trace is enclosed within an Array because you will later see that we can have multiple traces for a plot.
+  var data = [trace1];
+  
+  // layout is optional, but contains chart title, axis information, and any other custom layout behavior
+  var layout = {
+    title: "Average Gaming Hours Played per Age Group"
+  };
+  
+  // the first argument below ("plot") refers to the id of the div where the play will be displayed
+  // the second argument refers to our trace
+  // the third argument is optional. It refers to the chart's layout details.
+  Plotly.newPlot("plot", data, layout);
+  
+// ####################################################################################################
+
+
+
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
