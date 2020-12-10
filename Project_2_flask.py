@@ -92,7 +92,7 @@ def gamerChoice():
         # 'name':request.form['gamerName'],
         # 'location':request.form['location']
         # return jsonify(all_names)
-    return render_template("index.html", all_names=all_names)
+        return render_template("index.html", all_names=all_names)
 
 
 @app.route("/")
@@ -110,6 +110,7 @@ def revenue_():
     # Convert list of tuples into normal list
     # all_names = list(np.ravel(results))
     print(all_names)
+
     # return jsonify(all_names)
     return render_template("index.html", all_names=all_names)
 
