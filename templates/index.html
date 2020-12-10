@@ -60,14 +60,14 @@
                 {% for age in all_names['age'] %}
 
                 <!-- <div class="row">
-      <div class="col-lg-12">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">{{ gamers }}</h4>
-          </div>
-        </div>
-      </div>
-    </div> -->
+                  <div class="col-lg-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">{{ gamers }}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
 
 
 
@@ -119,6 +119,9 @@
 
   <!-- <script src="{{ url_for('static', filename='js/app.js') }}"></script> -->
   <script>console.log("{{ all_names | safe}}")
+
+<!-- <script src="{{ url_for('static', filename='js/app.js') }}"></script> -->
+  <script>console.log("{{ all_revenue | safe }}")
 
     d3.select('#altButton').on('click', function () {
       d3.json('http://api.ipstack.com/check?access_key=a8658fb86540d316778f17b3e00f1463&format=1').then(function (data) {
