@@ -115,5 +115,17 @@ def revenue_():
     return render_template("index.html", all_names=all_names)
 
 
+@app.route("/api/test")
+def test():
+    __tablename__ = "age"
+    results = db.session.query(age.age, age.avg_hours).all()
+    age_data = [{
+        "age": age,
+        "avg_hours": avg_hours
+    },
+    ]
+    return jsonify(age_data)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
