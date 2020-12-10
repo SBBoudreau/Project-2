@@ -11,30 +11,37 @@ from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
 
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, jsonify, request
-from flask import Flask, render_template
+from flask import (
+    Flask,
+    render_template,
+    jsonify,
+    request,
+    redirect)
 app = Flask(__name__)
 
 #################################################
 # Jennifer Postgres
 #################################################
-# pg_user = 'postgres'
-# db_name = 'Gamers'
-
-# connection_string = f"{pg_user}:Jennifer11@localhost:5432/{db_name}"
-# engine = create_engine(f'postgresql://{connection_string}')
-
-#################################################
-# Michael & Sadie's Postgres
-#################################################
 pg_user = 'postgres'
 db_name = 'Gamers'
 
-connection_string = f"{pg_user}:bootcampDavid@1942@localhost:5432/{db_name}"
+connection_string = f"{pg_user}:Jennifer11@localhost:5432/{db_name}"
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{connection_string}'
 db = SQLAlchemy(app)
 db.init_app(app)
 engine = db.engine
+
+#################################################
+# Michael & Sadie's Postgres
+#################################################
+# pg_user = 'postgres'
+# db_name = 'Gamers'
+
+# connection_string = f"{pg_user}:bootcampDavid@1942@localhost:5432/{db_name}"
+# app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{connection_string}'
+# db = SQLAlchemy(app)
+# db.init_app(app)
+# engine = db.engine
 
 #################################################
 # Sadies Postgres
@@ -73,30 +80,31 @@ def gamerChoice():
     print(gamerName)
     genderOption = request.form["optionsRadios"]
     print(genderOption)
+
     # do another query to pull data associated with the age range choice
 
  # Query all gamer data
     session = Session(engine)
     df = pd.read_sql_query("SELECT * FROM age", engine)
-    all_names = df.to_dict(orient="list")
+    all_ages = df.to_dict(orient="list")
 
     # close the session to end the communication with the database
     session.close()
 
     # Convert list of tuples into normal list
-    # all_names = list(np.ravel(results))
-    print(all_names)
+    all_names = list(np.ravel(results))
+    print(all_ages)
     if request.method == "POST":
         # put all your input info into the database
         # {
         # 'name':request.form['gamerName'],
         # 'location':request.form['location']
         # return jsonify(all_names)
-        return render_template("index.html", all_names=all_names)
-
+        return render_template("index.html", all_names=all_ages)
+    console.log(all_ages);
 
 @app.route("/")
-def revenue_():
+def age_():
     """Return a list of all movie names"""
 
     # Query all gamer data
@@ -110,22 +118,9 @@ def revenue_():
     # Convert list of tuples into normal list
     # all_names = list(np.ravel(results))
     print(all_names)
-
+    
     # return jsonify(all_names)
     return render_template("index.html", all_names=all_names)
-
-
-@app.route("/api/test")
-def test():
-    __tablename__ = "age"
-    results = db.session.query(age.age, age.avg_hours).all()
-    age_data = [{
-        "age": age,
-        "avg_hours": avg_hours
-    },
-    ]
-    return jsonify(age_data)
-
 
 if __name__ == '__main__':
     app.run(debug=True)

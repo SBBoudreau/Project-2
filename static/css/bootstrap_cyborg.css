@@ -5263,7 +5263,8 @@ a.badge-dark:focus, a.badge-dark.focus {
   margin-bottom: 2rem;
   background-color: #282828;
   border-radius: 0.3rem;
-}
+  text-shadow: 2px 2px 8px #FF0000;
+  }
 
 @media (min-width: 576px) {
   .jumbotron {

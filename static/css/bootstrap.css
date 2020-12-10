@@ -5264,7 +5264,8 @@ a.badge-dark:focus, a.badge-dark.focus {
   background-color: #282828;
   border-radius: 0.3rem;
   background-image: url("../../images/jumbotron_background.jpg");
-  background-size: cover
+  background-size: cover;
+  text-shadow: 2px 2px 8px #FF0000;
 }
 
 @media (min-width: 576px) {
