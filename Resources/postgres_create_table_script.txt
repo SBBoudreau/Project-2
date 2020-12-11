@@ -38,5 +38,5 @@ CREATE TABLE steam_users_lifetime (
 CREATE TABLE country_hours(
   country VARCHAR(30) NOT NULL,
   avg_hours INTEGER NOT NULL,
-  latlng INTEGER NOT NULL
+  latlng VARCHAR NOT NULL
 );
