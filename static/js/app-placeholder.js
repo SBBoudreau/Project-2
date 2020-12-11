@@ -1,3 +1,5 @@
+//RENDER MAPS WITH DB DATA NOT CUSTOMIZED
+
 d3.json("/revenue").then(function (data) {
     var trace = {
         x: data.country,
@@ -25,7 +27,104 @@ d3.json("/hours").then(function (data) {
 
 });
 
+d3.json("/age").then(function (data) {
 
+    var trace = {
+        x: data.age,
+        y: data.avg_hours.map(d => +d),
+        type: 'bar'
+    }
+
+    var data = [trace];
+
+    Plotly.newPlot("plot", data)
+
+});
+
+/////######THIS CODE WILL NOT WORK UNTIL WE HAVE THE LATLONG FOR COUNTRY,
+///// ADD COLUMN IN POSTGRES AND IN JUPYTER NOTEBOOK FOR LOADING DATA
+/////THE WE CAN CALL THE COORDS
+// var queryUrl = "/revenue"
+
+// function getMarkerOptions(feature) {
+//     var geojsonMarkerOptions = {
+//         radius: 30,
+//         // radius: 8,
+//         fillColor: "#00ffff",
+//         color: "#001",
+//         weight: 1,
+//         opacity: 1,
+//         fillOpacity: 1
+//     };
+//     return geojsonMarkerOptions;
+// }
+
+// // Perform a GET request to the query URL
+// d3.json(queryUrl, function(data) {
+//     // Once we get a response, create a geoJSON layer containing the features array and add a popup for each marker
+//     // then, send the layer to the createMap() function.
+//     var earthquakes = L.geoJSON(data.features, {
+//       pointToLayer: function (feature, latlng) {
+//         return L.circleMarker(latlng, getMarkerOptions(feature));
+//     }, 
+//       onEachFeature : addPopup
+//     });
+
+//     createMap(earthquakes);
+//   });
+
+
+//   // Define a function we want to run once for each feature in the features array
+//   function addPopup(feature, layer) {
+//     // Give each feature a popup describing the place and time of the earthquake
+//     return layer.bindPopup(`<h3> ${feature.properties.place} </h3> <hr> 
+//                             <p> ${Date(feature.properties.time)} </p>
+//                             <p> Depth: ${feature.geometry.coordinates[2]} </p>`);
+//   }
+
+//   // function to receive a layer of markers and plot them on a map.
+//   function createMap(earthquakes) {
+
+//     // Define streetmap and darkmap layers
+//     var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+//       maxZoom: 18,
+//       id: "streets-v11",
+//       accessToken: API_KEY
+//     });
+
+//     var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+//       maxZoom: 18,
+//       id: "dark-v10",
+//       accessToken: API_KEY
+//     });
+
+//     // Define a baseMaps object to hold our base layers
+//     var baseMaps = {
+//       "Street Map": streetmap,
+//       "Dark Map": darkmap
+//     };
+
+//     // Create overlay object to hold our overlay layer
+//     var overlayMaps = {
+//       "Earthquakes": earthquakes
+//     };
+
+//     // Create our map, giving it the streetmap and earthquakes layers to display on load
+//     var myMap = L.map("mapid", {
+//       center: [37.09, -95.71],
+//       zoom: 5,
+//       layers: [streetmap, earthquakes]
+//     });
+
+//     // Create a layer control
+//     // Pass in our baseMaps and overlayMaps
+//     // Add the layer control to the map
+//     L.control.layers(baseMaps, overlayMaps, {
+//       collapsed: false
+//     }).addTo(myMap);
+
+
+//   }
 
 d3.select('#button').on('click', function () {
     d3.event.preventDefault()
@@ -50,6 +149,7 @@ d3.select('#button').on('click', function () {
             Plotly.newPlot("plot3", data)
 
         })
+    
 
         d3.json("/hours").then(function (data) {
 
@@ -67,20 +167,31 @@ d3.select('#button').on('click', function () {
             Plotly.newPlot("plot2", data)
 
         })
-        d3.select('#choiceForm')
-    })
-})
-d3.json("/age").then(function (data) {
 
-    var trace = {
-        x: data.age,
-        y: data.avg_hours.map(d => +d),
-        type: 'bar'
-    }
+        /////NEED TO FIGURE OUT LINE 177, IS NULL ON SELECTION Button handler to store the age data
+        function handleClick() {
+            console.log("A button was clicked!");
+            console.log(d3.event.target);
+            
+            var ageEntry = d3.select("#select").node().value;
+            console.log(ageEntry);
+            d3.select('#choiceForm')
+            d3.json("/age").then(function (data) {
 
-    var data = [trace];
+                var trace = {
+                    x: data.age,
+                    y: data.avg_hours.map(d => +d),
+                    marker: {
+                        color: data.age.map(d => d == ageEntry ? 'rgba(193,66,66,1)' : 'rgba(66,66,191,1)')
+                    },
+                    type: 'bar'
+                }
 
-    Plotly.newPlot("plot", data)
+                var data = [trace];
 
-})
-
+                Plotly.newPlot("plot", data)
+            })
+        
+        }   
+    });
+});
