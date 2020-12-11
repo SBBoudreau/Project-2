@@ -87,42 +87,13 @@ d3.json("/age").then(function (data) {
 /////######THIS CODE WILL NOT WORK UNTIL WE HAVE THE LATLONG FOR COUNTRY,
 ///// ADD COLUMN IN POSTGRES AND IN JUPYTER NOTEBOOK FOR LOADING DATA
 /////THE WE CAN CALL THE COORDS
-var queryUrl = "/maphours"
-
-function getMarkerOptions(feature) {
-    var geojsonMarkerOptions = {
-        radius: 30,
-        // radius: 8,
-        fillColor: "#00ffff",
-        color: "#001",
-        weight: 1,
-        opacity: 1,
-        fillOpacity: 1
-    };
-    return geojsonMarkerOptions;
-}
-
-// Perform a GET request to the query URL
-d3.json(queryUrl, function (data) {
-    // Once we get a response, create a geoJSON layer containing the features array and add a popup for each marker
-    // then, send the layer to the createMap() function.
-    var countryHours = L.geoJSON(data.latlng, {
-        pointToLayer: function (feature, latlng) {
-            return L.circleMarker(latlng, getMarkerOptions(feature));
-        },
-        onEachFeature: addPopup
-    });
-
-    createMap(countryHours);
-});
+var queryUrl = "/map"
 
 
 //   // Define a function we want to run once for each feature in the features array
-function addPopup(feature, layer) {
+function addPopup(data, layer) {
     //     // Give each feature a popup describing the place and time of the countries
-    return layer.bindPopup(`<h3> ${data.countryHours.country} </h3> <hr> 
-                            <p> ${data.countryHours.avg_hours} </p>
-                            `);
+    return layer.bindPopup(`<h3> ${data.countryHours.country} </h3>`);
 }
 
 // function to receive a layer of markers and plot them on a map.
@@ -153,7 +124,7 @@ function createMap(countryHours) {
     };
 
     // Create our map, giving it the streetmap and country hours layers to display on load
-    var myMap = L.map("#mapid", {
+    var myMap = L.map("mapid", {
         center: [37.09, -95.71],
         zoom: 5,
         layers: [streetmap, countryHours]
@@ -168,6 +139,8 @@ function createMap(countryHours) {
 
 
 }
+
+
 
 d3.select('#button').on('click', function () {
     d3.event.preventDefault()

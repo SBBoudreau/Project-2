@@ -21,3 +21,10 @@ width: 100%;
  background-color: black;
 }
 
+#mapid,
+body,
+html {
+  height: 100%;
+}
+
+
