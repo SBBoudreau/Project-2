@@ -62,49 +62,23 @@
               <select name="id">
                 {% for age in all_names['age'] %}
 
-                <!-- <div class="row">
-                  <div class="col-lg-12">
-                    <div class="card">
-                      <div class="card-body">
-                        <h4 class="card-title">{{ gamers }}</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
-
-
                 <option name="{{ age }}" value="{{ age }}">{{age}}</option>
 
 
                 {% endfor %}
 
-              </select>
-              <select name="country">
-                {% for country in all_names['country'] %}
-
-
-
-
-                <option name="{{ country }}" value="{{ country }}">{{country}}</option>
-
-
-                {% endfor %}
-
-              </select>
-              <br><br>
-              <fieldset class="form-group">
-                <label class="col-form-label" for="inputDefault">How many hours do you play per week?</label>
-                <label for="customRange1">Example range</label>
-                <input type="range" class="custom-range" id="customRange1" value="0" min="0" max="100"
-                  oninput="hours_played.value=customRange1.value">
-                <output name="hours_played" id="hours_played">0</output>
-              </fieldset>
-              <br><br>
-              <fieldset>
-                <!-- <button role="button" type="button" class="btn btn-primary">Submit</button> -->
-                <a class="btn btn-primary" id="button" onclick="console.log('I clicked a button')">Submit</a>
-              </fieldset>
+                <fieldset class="form-group">
+                  <label class="col-form-label" for="inputDefault">How many hours do you play per week?</label>
+                  <label for="customRange1">Example range</label>
+                  <input type="range" class="custom-range" id="customRange1" value="0" min="0" max="100"
+                    oninput="hours_played.value=customRange1.value">
+                  <output name="hours_played" id="hours_played">0</output>
+                </fieldset>
+                <br><br>
+                <fieldset>
+                  <!-- <button role="button" type="button" class="btn btn-primary">Submit</button> -->
+                  <a class="btn btn-primary" id="button" onclick="console.log('I clicked a button')">Submit</a>
+                </fieldset>
             </form>
           </div>
         </div>

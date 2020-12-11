@@ -22,27 +22,26 @@ app = Flask(__name__)
 #################################################
 # Jennifer Postgres
 #################################################
-pg_user = 'postgres'
-db_name = 'Gamers'
-
-connection_string = f"{pg_user}:Sugar5728865**@localhost:5432/{db_name}"
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{connection_string}'
-db = SQLAlchemy(app)
-db.init_app(app)
-engine = db.engine
-
-#################################################
-# Michael & Sadie's Postgres
-#################################################
 # pg_user = 'postgres'
 # db_name = 'Gamers'
 
-# connection_string = f"{pg_user}:bootcampDavid@1942@localhost:5432/{db_name}"
+# connection_string = f"{pg_user}:Sugar5728865**@localhost:5432/{db_name}"
 # app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{connection_string}'
 # db = SQLAlchemy(app)
 # db.init_app(app)
 # engine = db.engine
 
+#################################################
+# Michael & Sadie's Postgres
+#################################################
+pg_user = 'postgres'
+db_name = 'Gamers'
+
+connection_string = f"{pg_user}:bootcampDavid@1942@localhost:5432/{db_name}"
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{connection_string}'
+db = SQLAlchemy(app)
+db.init_app(app)
+engine = db.engine
 
 
 # # Save reference to the table
@@ -79,7 +78,6 @@ def gamerChoice():
 #     # close the session to end the communication with the database
 #     session.close()
 
-    
     # # Convert list of tuples into normal list
     # all_names = list(np.ravel(results))
     # print(all_names)
@@ -90,12 +88,10 @@ def gamerChoice():
     #     # 'location':request.form['location']
     #     # return jsonify(all_names)
     #     return render_template("index.html", all_names=all_names)
-      
-     
 
 
-@app.route("/api")
-def api():
+@app.route("/age")
+def age():
     """Return a list of all age names"""
 
     # Query all gamer data
@@ -103,15 +99,14 @@ def api():
     df = pd.read_sql_query("SELECT * FROM age", engine)
     all_names = df.to_dict(orient="list")
 
-        
     # close the session to end the communication with the database
     session.close()
 
-
     return jsonify(all_names)
-    
+
+
 @app.route("/revenue")
-def api3():
+def revenue():
     """Return a list of all age names"""
 
     # Query all gamer data
@@ -119,13 +114,11 @@ def api3():
     df = pd.read_sql_query("SELECT * FROM revenue", engine)
     all_names = df.to_dict(orient="list")
 
-        
     # close the session to end the communication with the database
     session.close()
 
-
     return jsonify(all_names)
-    
+
 
 @app.route('/')
 def home():
@@ -134,28 +127,28 @@ def home():
     session = Session(engine)
     df = pd.read_sql_query("SELECT * FROM age", engine)
     all_names = df.to_dict(orient="list")
-    
+
     # close the session to end the communication with the database
     session.close()
 
-
-    #stuff goes here
+    # stuff goes here
     return render_template('index.html', all_names=all_names)
 
+
 @app.route('/hours')
-def api2():
+def hours():
 
     # Query all gamer data
     session = Session(engine)
     df = pd.read_sql_query("SELECT * FROM hours_average_country", engine)
     all_names = df.to_dict(orient="list")
-    
+
     # close the session to end the communication with the database
     session.close()
 
-
-    #stuff goes here
+    # stuff goes here
     return jsonify(all_names)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

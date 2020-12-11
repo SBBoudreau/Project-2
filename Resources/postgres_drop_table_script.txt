@@ -1,0 +1,6 @@
+DROP TABLE age;
+DROP TABLE gender;
+DROP TABLE hours_average_country;
+DROP TABLE revenue;
+DROP TABLE steam_users_lifetime;
+DROP TABLE top_ten;
