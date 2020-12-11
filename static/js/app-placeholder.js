@@ -29,7 +29,13 @@ d3.json("/hours").then(function (data) {
 
     var data = [hoursTrace];
 
-    Plotly.newPlot("plot2", data)
+    var hoursLayout = {
+        title: "Average Weekly Hours Played by Country",
+        xaxis: { title: "Country" },
+        yaxis: { title: "Average Weekly Hours Played" }
+    };
+
+    Plotly.newPlot("plot2", data, hoursLayout)
 
 });
 
@@ -43,7 +49,13 @@ d3.json("/age").then(function (data) {
 
     var data = [ageTrace];
 
-    Plotly.newPlot("plot", data)
+    var ageLayout = {
+        title: "Average Weekly Hours Played by Age Group",
+        xaxis: { title: "Country" },
+        yaxis: { title: "Average Weekly Hours Played" }
+    };
+
+    Plotly.newPlot("plot", data, ageLayout)
 
 });
 
@@ -176,7 +188,13 @@ d3.select('#button').on('click', function () {
 
             var data = [hoursTrace];
 
-            Plotly.newPlot("plot2", data)
+            var hoursLayout = {
+                title: "Average Weekly Hours Played by Country",
+                xaxis: { title: "Country" },
+                yaxis: { title: "Average Weekly Hours Played" }
+            };
+
+            Plotly.newPlot("plot2", data, hoursLayout)
 
         })
 
@@ -201,7 +219,13 @@ d3.select('#button').on('click', function () {
 
                 var data = [ageTrace];
 
-                Plotly.newPlot("plot", data)
+                var ageLayout = {
+                    title: "Average Weekly Hours Played by Age Group",
+                    xaxis: { title: "Country" },
+                    yaxis: { title: "Average Weekly Hours Played" }
+                };
+
+                Plotly.newPlot("plot", data, ageLayout)
             })
 
         }
