@@ -11,8 +11,18 @@ d3.json("/revenue").then(function (data) {
 
     var revenueLayout = {
         title: "Gaming Revenue by Country",
-        xaxis: { title: "Country" },
-        yaxis: { title: "Revenue (USD)" }
+        xaxis: {
+            title: "Country",
+            automargin: true
+        },
+        yaxis: {
+            title: "Revenue (USD)"
+        },
+        plot_bgcolor: "black",
+        paper_bgcolor: "black",
+        font: {
+            color: "white"
+        }
     };
 
     Plotly.newPlot("plot3", data, revenueLayout)
@@ -31,8 +41,18 @@ d3.json("/hours").then(function (data) {
 
     var hoursLayout = {
         title: "Average Weekly Hours Played by Country",
-        xaxis: { title: "Country" },
-        yaxis: { title: "Average Weekly Hours Played" }
+        xaxis: {
+            title: "Country",
+            tickangle: 45
+        },
+        yaxis: {
+            title: "Average Weekly Hours Played"
+        },
+        plot_bgcolor: "black",
+        paper_bgcolor: "black",
+        font: {
+            color: "white"
+        }
     };
 
     Plotly.newPlot("plot2", data, hoursLayout)
@@ -52,7 +72,12 @@ d3.json("/age").then(function (data) {
     var ageLayout = {
         title: "Average Weekly Hours Played by Age Group",
         xaxis: { title: "Country" },
-        yaxis: { title: "Average Weekly Hours Played" }
+        yaxis: { title: "Average Weekly Hours Played" },
+        plot_bgcolor: "black",
+        paper_bgcolor: "black",
+        font: {
+            color: "white"
+        }
     };
 
     Plotly.newPlot("plot", data, ageLayout)
@@ -167,7 +192,12 @@ d3.select('#button').on('click', function () {
             var revenueLayout = {
                 title: "Gaming Revenue by Country",
                 xaxis: { title: "Country" },
-                yaxis: { title: "Revenue (USD)" }
+                yaxis: { title: "Revenue (USD)" },
+                plot_bgcolor: "black",
+                paper_bgcolor: "black",
+                font: {
+                    color: "white"
+                }
             };
 
             Plotly.newPlot("plot3", data, revenueLayout)
@@ -191,7 +221,12 @@ d3.select('#button').on('click', function () {
             var hoursLayout = {
                 title: "Average Weekly Hours Played by Country",
                 xaxis: { title: "Country" },
-                yaxis: { title: "Average Weekly Hours Played" }
+                yaxis: { title: "Average Weekly Hours Played" },
+                plot_bgcolor: "black",
+                paper_bgcolor: "black",
+                font: {
+                    color: "white"
+                }
             };
 
             Plotly.newPlot("plot2", data, hoursLayout)
@@ -222,7 +257,12 @@ d3.select('#button').on('click', function () {
                 var ageLayout = {
                     title: "Average Weekly Hours Played by Age Group",
                     xaxis: { title: "Country" },
-                    yaxis: { title: "Average Weekly Hours Played" }
+                    yaxis: { title: "Average Weekly Hours Played" },
+                    plot_bgcolor: "black",
+                    paper_bgcolor: "black",
+                    font: {
+                        color: "white"
+                    }
                 };
 
                 Plotly.newPlot("plot", data, ageLayout)
