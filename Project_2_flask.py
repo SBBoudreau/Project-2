@@ -25,7 +25,7 @@ app = Flask(__name__)
 pg_user = 'postgres'
 db_name = 'Gamers'
 
-connection_string = f"{pg_user}:Sugar5728865**@localhost:5432/{db_name}"
+connection_string = f"{pg_user}:bootcampDavid@1942@localhost:5432/{db_name}"
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{connection_string}'
 db = SQLAlchemy(app)
 db.init_app(app)
@@ -119,6 +119,7 @@ def revenue():
 
     return jsonify(all_names)
 
+
 @app.route("/maphours")
 def maphours():
     """Return a list of all age names"""
@@ -133,7 +134,7 @@ def maphours():
 
     return jsonify(all_maphours)
 
-    
+
 @app.route('/')
 def home():
 
