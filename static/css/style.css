@@ -8,23 +8,10 @@ h1.jumbotron {
   text-shadow: 2px 2px 8px #FF0000;
 }
 
-body {
-  font: 10px sans-serif;
+#plot {
+width: 100%
 }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.x.axis path {
-  display: none;
-}
-
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
+#plot2 {
+  width: 100%
+  }

@@ -25,11 +25,11 @@ app = Flask(__name__)
 pg_user = 'postgres'
 db_name = 'Gamers'
 
-# connection_string = f"{pg_user}:Jennifer11@localhost:5432/{db_name}"
-# app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{connection_string}'
-# db = SQLAlchemy(app)
-# db.init_app(app)
-# engine = db.engine
+connection_string = f"{pg_user}:Jennifer11@localhost:5432/{db_name}"
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{connection_string}'
+db = SQLAlchemy(app)
+db.init_app(app)
+engine = db.engine
 
 #################################################
 # Michael & Sadie's Postgres
@@ -37,11 +37,11 @@ db_name = 'Gamers'
 # pg_user = 'postgres'
 # db_name = 'Gamers'
 
-connection_string = f"{pg_user}:Sugar5728865**@localhost:5432/{db_name}"
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{connection_string}'
-db = SQLAlchemy(app)
-db.init_app(app)
-engine = db.engine
+# connection_string = f"{pg_user}:bootcampDavid@1942@localhost:5432/{db_name}"
+# app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{connection_string}'
+# db = SQLAlchemy(app)
+# db.init_app(app)
+# engine = db.engine
 
 
 
@@ -59,6 +59,7 @@ engine = db.engine
 # Flask Routes
 #################################################
 
+
 @app.route("/gamerChoice", methods=["POST"])
 def gamerChoice():
     choice = request.form["id"]
@@ -68,64 +69,78 @@ def gamerChoice():
     genderOption = request.form["optionsRadios"]
     print(genderOption)
 
-    # do another query to pull data associated with the age range choice
+#     # do another query to pull data associated with the age range choice
 
- # Query all gamer data
-    session = Session(engine)
-    df_age = pd.read_sql_query("SELECT * FROM age", engine)
-    all_names = df_age.to_dict(orient="list")
+#  # Query all gamer data
+#     session = Session(engine)
+#     df_age = pd.read_sql_query("SELECT * FROM age", engine)
+#     all_names = df_age.to_dict(orient="list")
 
-    # close the session to end the communication with the database
-    session.close()
-
-    session = Session(engine)
-    df_rev = pd.read_sql_query("SELECT * FROM revenue", engine)
-    all_revenue = df_rev.to_dict(orient="list")
-
-    session.close()
-
-    # Convert list of tuples into normal list
-    all_names = list(np.ravel(results))
-    print(all_names)
-    if request.method == "POST":
-        # put all your input info into the database
-        # {
-        # 'name':request.form['gamerName'],
-        # 'location':request.form['location']
-        # return jsonify(all_names)
-        return render_template("index.html", all_names=all_names)
-
-        all_revenue = list(np.ravel(results))
-    print(all_revenue)
-    if request.method == "POST":
-        # put all your input info into the database
-        # {
-        # 'name':request.form['gamerName'],
-        # 'location':request.form['location']
-        # return jsonify(all_names)
-        return render_template("index.html", all_revenue=all_revenue)
-   
+#     # close the session to end the communication with the database
+#     session.close()
 
     
+    # # Convert list of tuples into normal list
+    # all_names = list(np.ravel(results))
+    # print(all_names)
+    # if request.method == "POST":
+    #     # put all your input info into the database
+    #     # {
+    #     # 'name':request.form['gamerName'],
+    #     # 'location':request.form['location']
+    #     # return jsonify(all_names)
+    #     return render_template("index.html", all_names=all_names)
+      
+     
 
-@app.route("/")
-def age_():
-    """Return a list of all movie names"""
+
+@app.route("/api")
+def api():
+    """Return a list of all age names"""
 
     # Query all gamer data
-    # session = Session(engine)
+    session = Session(engine)
     df = pd.read_sql_query("SELECT * FROM age", engine)
     all_names = df.to_dict(orient="list")
 
+        
     # close the session to end the communication with the database
-    # session.close()
+    session.close()
 
-    # Convert list of tuples into normal list
-    # all_names = list(np.ravel(results))
-    print(all_names)
+
+    return jsonify(all_names)
     
-    # return jsonify(all_names)
-    return render_template("index.html", all_names=all_names)
+@app.route("/api2")
+def api2():
+    """Return a list of all age names"""
+
+    # Query all gamer data
+    session = Session(engine)
+    df = pd.read_sql_query("SELECT * FROM revenue", engine)
+    all_names = df.to_dict(orient="list")
+
+        
+    # close the session to end the communication with the database
+    session.close()
+
+
+    return jsonify(all_names)
+    
+
+@app.route('/')
+def home():
+
+    # Query all gamer data
+    session = Session(engine)
+    df = pd.read_sql_query("SELECT * FROM age", engine)
+    all_names = df.to_dict(orient="list")
+    
+    # close the session to end the communication with the database
+    session.close()
+
+
+    #stuff goes here
+    return render_template('index.html', all_names=all_names)
 
 
 if __name__ == '__main__':

@@ -78,6 +78,28 @@
 
 
                 {% endfor %}
+
+              </select>
+              <!-- <select name="revenue">
+                {% for rev in all_names['country'] %} -->
+
+              <!-- <div class="row">
+                                  <div class="col-lg-12">
+                                    <div class="card">
+                                      <div class="card-body">
+                                        <h4 class="card-title">{{ gamers }}</h4>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div> -->
+
+
+
+              <!-- <option name="{{ country }}" value="{{ country }}">{{country}}</option> -->
+
+
+              <!-- {% endfor %} -->
+
               </select>
               <br><br>
               <fieldset class="form-group">
@@ -90,7 +112,7 @@
               <br><br>
               <fieldset>
                 <!-- <button role="button" type="button" class="btn btn-primary">Submit</button> -->
-                <a href="#" class="btn btn-primary" id="altButton" onclick="console.log('I clicked a button')">Alt
+                <a href="#" class="btn btn-primary" id="button" onclick="console.log('I clicked a button')">Alt
                   Submit</a>
               </fieldset>
             </form>
@@ -101,10 +123,10 @@
       </div>
       <div class="col-md-5">
         <div id="plot"></div>
-        <script src="static/js/plot.js"></script>
 
       </div>
       <div class="col-md-5">
+        <div id="plot2"></div>
 
       </div>
     </div>
@@ -121,35 +143,11 @@
   <!-- Bootstrap core JavaScript -->
   <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="static/js/app-placeholder.js"></script>
+
 
   <!-- <script src="{{ url_for('static', filename='js/app.js') }}"></script> -->
-  <script>console.log("{{ all_names | safe}}")
 
-<!-- <script src="{{ url_for('static', filename='js/app.js') }}"></script> -->
-  <script>console.log("{{ all_revenue | safe }}")
-
-    d3.select('#altButton').on('click', function () {
-      d3.json('http://api.ipstack.com/check?access_key=a8658fb86540d316778f17b3e00f1463&format=1').then(function (data) {
-        country = data.country_name
-        console.log(country)
-        d3.select('#locationInput').attr('value', country)
-
-
-        // do stuff in here
-
-
-
-
-        // then....
-        d3.select('#choiceForm')
-      })
-    })
-
-
-
-
-
-  </script>
 </body>
 
 </html>

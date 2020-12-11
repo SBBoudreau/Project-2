@@ -1,115 +1,103 @@
-# import necessary libraries
-import os
+# Docs on session basics
+# https://docs.sqlalchemy.org/en/13/orm/session_basics.html
+
 import numpy as np
+import os
+import pandas as pd
+
+import sqlalchemy
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine
+
+from flask_sqlalchemy import SQLAlchemy
 from flask import (
     Flask,
     render_template,
     jsonify,
     request,
     redirect)
-
-import sqlalchemy
-from sqlalchemy.ext.automap import automap_base
-from sqlalchemy.orm import Session
-from sqlalchemy import create_engine
-from flask_sqlalchemy import SQLAlchemy
-
-#################################################
-# Flask Setup
-#################################################
 app = Flask(__name__)
 
 #################################################
-# Database Setup
+# Jennifer Postgres
+#################################################
+pg_user = 'postgres'
+db_name = 'Gamers'
+
+connection_string = f"{pg_user}:Jennifer11@localhost:5432/{db_name}"
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{connection_string}'
+db = SQLAlchemy(app)
+db.init_app(app)
+engine = db.engine
+
+################################################
+# Michael & Sadie's Postgres
+#################################################
+# pg_user = 'postgres'
+# db_name = 'Gamers'
+
+# connection_string = f"{pg_user}:Sugar5728865**@localhost:5432/{db_name}"
+# app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{connection_string}'
+# db = SQLAlchemy(app)
+# db.init_app(app)
+# engine = db.engine
+
+#################################################
+# Flask Routes
 #################################################
 
-# try:
-db_uri = os.environ['https://dashboard.heroku.com/apps/turkey-tryptophan-trifecta']
-# except KeyError:
+@app.route("/gamerChoice", methods=["POST"])
+def gamerChoice():
+    choice = request.form["id"]
+    print(choice)
+    gamerName = request.form["gamerName"]
+    print(gamerName)
+    genderOption = request.form["optionsRadios"]
+    print(genderOption)
 
-#     pg_user = 'postgres'
-#     db_name = 'Gamers'
+    # do another query to pull data associated with the age range choice
 
-#     connection_string = f"{pg_user}:Jennifer11@localhost:5432/{db_name}"
-#     db_uri = create_engine(f'postgresql://{connection_string}')
+ # Query all gamer data
+    session = Session(engine)
+    df_age = pd.read_sql_query("SELECT * FROM age", engine)
+    all_names = df_age.to_dict(orient="list")
+    return jsonify(all_names)
 
+    # close the session to end the communication with the database
+    session.close()
 
-print(db_uri)
-# app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+    
+    # Convert list of tuples into normal list
+    all_names = list(np.ravel(results))
+    print(all_names)
+    if request.method == "POST":
+        # put all your input info into the database
+        # {
+        # 'name':request.form['gamerName'],
+        # 'location':request.form['location']
+        # return jsonify(all_names)
+        return render_template("index.html", all_names=all_names)
 
-# db = SQLAlchemy(app)
+@app.route("/")
+def age_():
+    """Return a list of all movie names"""
 
-# # Create class to frame each pet instance
+    # Query all gamer data
+    # session = Session(engine)
+    df = pd.read_sql_query("SELECT * FROM age", engine)
+    all_names = df.to_dict(orient="list")
 
+    # close the session to end the communication with the database
+    # session.close()
 
-# class user_input(db.Model):
-#     __tablename__ = ''
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     u_name = db.Column(db.String(64))
-#     u_age = db.Column(db.Float)
-#     u_hours = db.Column(db.Float)
-#     u_gender = db.Column(db.String(64))
-
-#     def __repr__(self):
-#         return '<Pet %r>' % (self.name)
-
-
-# @app.before_first_request
-# def setup():
-#     pass
-#     # create route that renders index.html template
-
-
-# @app.route("/")
-# def home():
-#     return render_template("index.html")
-
-
-# # Query the database and send the jsonified results
-# @app.route("/send", methods=["GET", "POST"])
-# def send():
-#     # if request.method == "POST":
-#     #     u_name = request.form["UserName"]
-#     #     u_age = request.form["UserAge"]
-#     #     u_hours = request.form["UserHours"]
-
-#     #     pet = Pet(name=name, lat=lat, lon=lon)
-#     #     db.session.add(pet)
-#     #     db.session.commit()
-#     #     return redirect("/", code=302)
-
-#     # return render_template("form.html")
-#     pass
+    # Convert list of tuples into normal list
+    # all_names = list(np.ravel(results))
+    print(all_names)
+    
+    # return jsonify(all_names)
+    return render_template("index.html", all_names=all_names)
 
 
-# @app.route("/api/pals")
-# def pals():
-#     # results = db.session.query(Pet.name, Pet.lat, Pet.lon).all()
-
-#     # hover_text = [result[0] for result in results]
-#     # lat = [result[1] for result in results]
-#     # lon = [result[2] for result in results]
-
-#     # pet_data = [{
-#     #     "type": "scattergeo",
-#     #     "locationmode": "USA-states",
-#     #     "lat": lat,
-#     #     "lon": lon,
-#     #     "text": hover_text,
-#     #     "hoverinfo": "text",
-#     #     "marker": {
-#     #         "size": 50,
-#     #         "line": {
-#     #             "color": "rgb(8,8,8)",
-#     #             "width": 1
-#     #         },
-#     #     }
-#     # }]
-
-#     # return jsonify(pet_data)
-#     pass
-
-
-if __name__ == "__main__":
-    app.run()
+if __name__ == '__main__':
+    app.run(debug=True)
