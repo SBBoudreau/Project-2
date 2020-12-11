@@ -83,13 +83,13 @@
               <select name="country">
                 {% for country in all_names['country'] %}
 
-              
 
 
-              <option name="{{ country }}" value="{{ country }}">{{country}}</option>
+
+                <option name="{{ country }}" value="{{ country }}">{{country}}</option>
 
 
-              {% endfor %}
+                {% endfor %}
 
               </select>
               <br><br>
@@ -112,21 +112,26 @@
 
       </div>
       <div class="col-10">
+        <div class="row">
+          <div class="col">
+            <div id="mappymap">
+              <h1>Sadie, the map will go here</h1>
+            </div>
+          </div>
+        </div>
         <div class="row p-3">
           <div class="col-md-6">
             <div id="plot3"></div>
           </div>
           <div class="col-md-6">
-            <div id="map"></div>
+            <div id="plot2"></div>
           </div>
         </div>
         <div class="row p-3">
-          <div class="col-md-6">
+          <div class="col">
             <div id="plot"></div>
           </div>
-          <div class="col-md-6">
-            <div id="plot2"></div>
-          </div>
+
         </div>
 
       </div>
