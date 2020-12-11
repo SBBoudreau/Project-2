@@ -3,18 +3,30 @@
 
 
 d3.select('#button').on('click', function () {
-    d3.json('http://api.ipstack.com/check?access_key=a8658fb86540d316778f17b3e00f1463&format=1').then(function (data) {
-        country = data.country_name
+    d3.event.preventDefault()
+    d3.json('http://api.ipstack.com/check?access_key=a8658fb86540d316778f17b3e00f1463&format=1').then(function (countryData) {
+        var country = countryData.country_code
         console.log(country)
         d3.select('#locationInput').attr('value', country)
 
+        d3.json("/api2").then(function(data) {
+            console.log( data.country.map(d=> d==country?'rgba(193,66,66,1)':'rgba(66,66,191,1)'))
+            var trace = {
+                x: data.country,
+                y: data.revenue.map(d => +d),
+                marker:{
+                   color: data.country.map(d=> d==country?'rgba(193,66,66,1)':'rgba(66,66,191,1)')
+                },
+                type: 'bar'
+            }
+        
+            var data = [trace];
+        
+            Plotly.newPlot("plot3", data)
+        
+        })
 
-        // do stuff in here
 
-
-
-
-        // then....
         d3.select('#choiceForm')
     })
     })
