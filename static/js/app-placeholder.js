@@ -174,6 +174,8 @@ d3.select('#button').on('click', function () {
     d3.json('http://api.ipstack.com/check?access_key=a8658fb86540d316778f17b3e00f1463&format=1').then(function (countryData) {
         var country = countryData.country_name
         console.log(country)
+        var coordinates = [countryData.latitude, countryData.longitude]
+        console.log(coordinates)
         d3.select('#locationInput').attr('value', country)
 
         d3.json("/revenue").then(function (data) {
