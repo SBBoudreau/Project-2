@@ -9,9 +9,15 @@ h1.jumbotron {
 }
 
 #plot {
-width: 100%
+width: 100%;
 }
 
 #plot2 {
   width: 100%
   }
+
+.figure {
+ height: 75%;
+ background-color: black;
+}
+

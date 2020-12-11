@@ -1,27 +1,33 @@
 //RENDER MAPS WITH DB DATA NOT CUSTOMIZED
 
 d3.json("/revenue").then(function (data) {
-    var trace = {
+    var revenueTrace = {
         x: data.country,
         y: data.revenue.map(d => +d),
         type: 'bar'
     }
 
-    var data = [trace];
+    var data = [revenueTrace];
 
-    Plotly.newPlot("plot3", data)
+    var revenueLayout = {
+        title: "Gaming Revenue by Country",
+        xaxis: { title: "Country" },
+        yaxis: { title: "Revenue (USD)" }
+    };
+
+    Plotly.newPlot("plot3", data, revenueLayout)
 
 })
 
 d3.json("/hours").then(function (data) {
 
-    var trace = {
+    var hoursTrace = {
         x: data.country,
         y: data.avg_hours.map(d => +d),
         type: 'bar'
     }
 
-    var data = [trace];
+    var data = [hoursTrace];
 
     Plotly.newPlot("plot2", data)
 
@@ -29,13 +35,13 @@ d3.json("/hours").then(function (data) {
 
 d3.json("/age").then(function (data) {
 
-    var trace = {
+    var ageTrace = {
         x: data.age,
         y: data.avg_hours.map(d => +d),
         type: 'bar'
     }
 
-    var data = [trace];
+    var data = [ageTrace];
 
     Plotly.newPlot("plot", data)
 
@@ -135,7 +141,7 @@ d3.select('#button').on('click', function () {
 
         d3.json("/revenue").then(function (data) {
             console.log(data.country.map(d => d == country ? 'rgba(193,66,66,1)' : 'rgba(66,66,191,1)'))
-            var trace = {
+            var revenueTrace = {
                 x: data.country,
                 y: data.revenue.map(d => +d),
                 marker: {
@@ -144,16 +150,22 @@ d3.select('#button').on('click', function () {
                 type: 'bar'
             }
 
-            var data = [trace];
+            var data = [revenueTrace];
 
-            Plotly.newPlot("plot3", data)
+            var revenueLayout = {
+                title: "Gaming Revenue by Country",
+                xaxis: { title: "Country" },
+                yaxis: { title: "Revenue (USD)" }
+            };
+
+            Plotly.newPlot("plot3", data, revenueLayout)
 
         })
-    
+
 
         d3.json("/hours").then(function (data) {
 
-            var trace = {
+            var hoursTrace = {
                 x: data.country,
                 y: data.avg_hours.map(d => +d),
                 marker: {
@@ -162,7 +174,7 @@ d3.select('#button').on('click', function () {
                 type: 'bar'
             }
 
-            var data = [trace];
+            var data = [hoursTrace];
 
             Plotly.newPlot("plot2", data)
 
@@ -172,13 +184,13 @@ d3.select('#button').on('click', function () {
         function handleClick() {
             console.log("A button was clicked!");
             console.log(d3.event.target);
-            
+
             var ageEntry = d3.select("#select").node().value;
             console.log(ageEntry);
             d3.select('#choiceForm')
             d3.json("/age").then(function (data) {
 
-                var trace = {
+                var ageTrace = {
                     x: data.age,
                     y: data.avg_hours.map(d => +d),
                     marker: {
@@ -187,11 +199,11 @@ d3.select('#button').on('click', function () {
                     type: 'bar'
                 }
 
-                var data = [trace];
+                var data = [ageTrace];
 
                 Plotly.newPlot("plot", data)
             })
-        
-        }   
+
+        }
     });
 });
