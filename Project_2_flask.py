@@ -119,7 +119,21 @@ def revenue():
 
     return jsonify(all_names)
 
+@app.route("/maphours")
+def maphours():
+    """Return a list of all age names"""
 
+    # Query all gamer data
+    session = Session(engine)
+    df = pd.read_sql_query("SELECT * FROM country_hours", engine)
+    all_maphours = df.to_dict(orient="list")
+
+    # close the session to end the communication with the database
+    session.close()
+
+    return jsonify(all_maphours)
+
+    
 @app.route('/')
 def home():
 
