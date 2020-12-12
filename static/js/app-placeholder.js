@@ -164,7 +164,7 @@ d3.select('#button').on('click', function () {
         console.log(country)
         var coordinates = [countryData.latitude, countryData.longitude]
         console.log(coordinates)
-        d3.select('#locationInput').attr('value', country)
+        var selectedId = d3.select('#selDataset').attr('value', country)
 
         d3.json("/revenue").then(function (data) {
             console.log(data.country.map(d => d == country ? 'rgba(193,66,66,1)' : 'rgba(66,66,191,1)'))
@@ -224,17 +224,8 @@ d3.select('#button').on('click', function () {
         })
 
         d3.json("/age").then(function (data) {
-
-            var ageEntry = d3.select('#selDataset')
-            var ages = data.age;
-            ages.forEach(id => {
-                ageEntry.append('option')
-                    .text(id)
-                    .property('value', id)
-            })
-            function optionChanged(selectedID) {
-                console.log(selectedID);
-            }
+            var ageEntry = d3.select("#ageSelect").node().value;
+            console.log(ageEntry);
 
             var ageTrace = {
                 x: data.age,
@@ -259,9 +250,7 @@ d3.select('#button').on('click', function () {
             };
 
             Plotly.newPlot("plot", data, ageLayout)
-        }
-
-        );
+        });
     });
 });
 
@@ -271,10 +260,10 @@ var svgHeight = 500;
 
 // Define the chart's margins as an object
 var margin = {
-  top: 60,
-  right: 60,
-  bottom: 60,
-  left: 60
+    top: 60,
+    right: 60,
+    bottom: 60,
+    left: 60
 };
 
 // Define dimensions of the chart area
@@ -283,76 +272,76 @@ var chartHeight = svgHeight - margin.top - margin.bottom;
 
 // Select body, append SVG area to it, and set its dimensions
 var svg = d3.select("body")
-  .append("svg")
-  .attr("width", svgWidth)
-  .attr("height", svgHeight);
+    .append("svg")
+    .attr("width", svgWidth)
+    .attr("height", svgHeight);
 
 // Append a group area, then set its margins
 var chartGroup = svg.append("g")
-  .attr("transform", `translate(${margin.left}, ${margin.top})`);
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Configure a parseTime function which will return a new Date object from a string
 var parseTime = d3.timeParse("%d/%m/%Y");
 
 // Load data from forcepoints.csv
-d3.csv("../../Resources/top_ten.csv").then(function(forceData) {
+d3.csv("../Resources/top_ten.csv").then(function (topTen) {
 
-  // Print the forceData
-  console.log(forceData);
+    // Print the forceData
+    console.log(topTen);
 
-  // Format the date and cast the force value to a number
-  topTen.forEach(function (data) {
-    data.date = parseTime(data.date)
-    data.dota_2 = +data.dota_2
-    data.counter_strike = +data.counter_strike
-    data.terraria = +data.terraria
-    data.postal = +data.postal
-    data.gta = +data.gta
-    data.fallout_4 = +data.fallout_4
-    data.life_is_strange = +data.life_is_strange
-    data.battlegrounds = +data.battlegrounds
-    data.hitman_2 = +data.hutman_2
-    data.among_us = +data.among_us;
-});
+    // Format the date and cast the force value to a number
+    topTen.forEach(function (data) {
+        data.date = parseTime(data.date)
+        data.dota_2 = +data.dota_2
+        data.counter_strike = +data.counter_strike
+        data.terraria = +data.terraria
+        data.postal = +data.postal
+        data.gta = +data.gta
+        data.fallout_4 = +data.fallout_4
+        data.life_is_strange = +data.life_is_strange
+        data.battlegrounds = +data.battlegrounds
+        data.hitman_2 = +data.hutman_2
+        data.among_us = +data.among_us;
+    });
 
-  // Configure a time scale
-  // d3.extent returns the an array containing the min and max values for the property specified
-  var xTimeScale = d3.scaleTime()
-    .domain(d3.extent(forceData, data => data.date))
-    .range([0, chartWidth]);
+    // Configure a time scale
+    // d3.extent returns the an array containing the min and max values for the property specified
+    var xTimeScale = d3.scaleTime()
+        .domain(d3.extent(forceData, data => data.date))
+        .range([0, chartWidth]);
 
-  // Configure a linear scale with a range between the chartHeight and 0
-  var yLinearScale = d3.scaleLinear()
-    .domain([0, d3.max(forceData, data => data.force)])
-    .range([chartHeight, 0]);
+    // Configure a linear scale with a range between the chartHeight and 0
+    var yLinearScale = d3.scaleLinear()
+        .domain([0, d3.max(topTen, data => data.gta)])
+        .range([chartHeight, 0]);
 
-  // Create two new functions passing the scales in as arguments
-  // These will be used to create the chart's axes
-  var bottomAxis = d3.axisBottom(xTimeScale);
-  var leftAxis = d3.axisLeft(yLinearScale);
+    // Create two new functions passing the scales in as arguments
+    // These will be used to create the chart's axes
+    var bottomAxis = d3.axisBottom(xTimeScale);
+    var leftAxis = d3.axisLeft(yLinearScale);
 
-  // Configure a line function which will plot the x and y coordinates using our scales
-  var drawLine = d3.line()
-    .x(data => xTimeScale(data.date))
-    .y(data => yLinearScale(data.force));
+    // Configure a line function which will plot the x and y coordinates using our scales
+    var drawLine = d3.line()
+        .x(data => xTimeScale(data.date))
+        .y(data => yLinearScale(data.gta));
 
-  // Append an SVG path and plot its points using the line function
-  chartGroup.append("path")
-    // The drawLine function returns the instructions for creating the line for forceData
-    .attr("d", drawLine(forceData))
-    .classed("line", true);
+    // Append an SVG path and plot its points using the line function
+    chartGroup.append("path")
+        // The drawLine function returns the instructions for creating the line for forceData
+        .attr("d", drawLine(topTen))
+        .classed("line", true);
 
-  // Append an SVG group element to the chartGroup, create the left axis inside of it
-  chartGroup.append("g")
-    .classed("axis", true)
-    .call(leftAxis);
+    // Append an SVG group element to the chartGroup, create the left axis inside of it
+    chartGroup.append("g")
+        .classed("axis", true)
+        .call(leftAxis);
 
-  // Append an SVG group element to the chartGroup, create the bottom axis inside of it
-  // Translate the bottom axis to the bottom of the page
-  chartGroup.append("g")
-    .classed("axis", true)
-    .attr("transform", `translate(0, ${chartHeight})`)
-    .call(bottomAxis);
-}).catch(function(error) {
-
+    // Append an SVG group element to the chartGroup, create the bottom axis inside of it
+    // Translate the bottom axis to the bottom of the page
+    chartGroup.append("g")
+        .classed("axis", true)
+        .attr("transform", `translate(0, ${chartHeight})`)
+        .call(bottomAxis);
+}).catch(function (error) {
+    console.log("there is an error")
 });
