@@ -68,27 +68,7 @@ def gamerChoice():
     genderOption = request.form["optionsRadios"]
     print(genderOption)
 
-#     # do another query to pull data associated with the age range choice
-
-#  # Query all gamer data
-#     session = Session(engine)
-#     df_age = pd.read_sql_query("SELECT * FROM age", engine)
-#     all_names = df_age.to_dict(orient="list")
-
-#     # close the session to end the communication with the database
-#     session.close()
-
-    # # Convert list of tuples into normal list
-    # all_names = list(np.ravel(results))
-    # print(all_names)
-    # if request.method == "POST":
-    #     # put all your input info into the database
-    #     # {
-    #     # 'name':request.form['gamerName'],
-    #     # 'location':request.form['location']
-    #     # return jsonify(all_names)
-    #     return render_template("index.html", all_names=all_names)
-
+#     
 
 @app.route("/age")
 def age():

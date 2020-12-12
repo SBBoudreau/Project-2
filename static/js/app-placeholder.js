@@ -145,17 +145,17 @@ d3.json("/age").then(function (data) {
 var myMap = L.map('map', {
     center: [29.76, -95.37],
     zoom: 11
-  });
-  // Adding a tile layer (the background map image) to our map.
-  // Leaflet doesn't have out-of-the-box tile layers, but it allows us to usetile layer APIs. Here, we're using mapbox.
-  // We use the addTo method to add objects to our map
-  // Documentation for tileLayer:https://leafletjs.com/reference-1.6.0.html#tilelayer
-  L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+});
+// Adding a tile layer (the background map image) to our map.
+// Leaflet doesn't have out-of-the-box tile layers, but it allows us to usetile layer APIs. Here, we're using mapbox.
+// We use the addTo method to add objects to our map
+// Documentation for tileLayer:https://leafletjs.com/reference-1.6.0.html#tilelayer
+L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
     maxZoom: 18,
     id: "streets-v11",
     accessToken: API_KEY
-  }).addTo(myMap);
+}).addTo(myMap);
 
 d3.select('#button').on('click', function () {
     d3.event.preventDefault()
@@ -223,41 +223,136 @@ d3.select('#button').on('click', function () {
 
         })
 
-        /////NEED TO FIGURE OUT LINE 177, IS NULL ON SELECTION Button handler to store the age data
-        function handleClick() {
-            console.log("A button was clicked!");
-            console.log(d3.event.target);
+        d3.json("/age").then(function (data) {
 
-            var ageEntry = d3.select("#select").node().value;
-            console.log(ageEntry);
-            d3.select('#choiceForm')
-            d3.json("/age").then(function (data) {
-
-                var ageTrace = {
-                    x: data.age,
-                    y: data.avg_hours.map(d => +d),
-                    marker: {
-                        color: data.age.map(d => d == ageEntry ? 'rgba(193,66,66,1)' : 'rgba(66,66,191,1)')
-                    },
-                    type: 'bar'
-                }
-
-                var data = [ageTrace];
-
-                var ageLayout = {
-                    title: "Average Weekly Hours Played by Age Group",
-                    xaxis: { title: "Country" },
-                    yaxis: { title: "Average Weekly Hours Played" },
-                    plot_bgcolor: "black",
-                    paper_bgcolor: "black",
-                    font: {
-                        color: "white"
-                    }
-                };
-
-                Plotly.newPlot("plot", data, ageLayout)
+            var ageEntry = d3.select('#selDataset')
+            var ages = data.age;
+            ages.forEach(id => {
+                ageEntry.append('option')
+                    .text(id)
+                    .property('value', id)
             })
+            function optionChanged(selectedID) {
+                console.log(selectedID);
+            }
 
+            var ageTrace = {
+                x: data.age,
+                y: data.avg_hours.map(d => +d),
+                marker: {
+                    color: data.age.map(d => d == ageEntry ? 'rgba(193,66,66,1)' : 'rgba(66,66,191,1)')
+                },
+                type: 'bar'
+            }
+
+            var data = [ageTrace];
+
+            var ageLayout = {
+                title: "Average Weekly Hours Played by Age Group",
+                xaxis: { title: "Country" },
+                yaxis: { title: "Average Weekly Hours Played" },
+                plot_bgcolor: "black",
+                paper_bgcolor: "black",
+                font: {
+                    color: "white"
+                }
+            };
+
+            Plotly.newPlot("plot", data, ageLayout)
         }
+
+        );
     });
+});
+
+// Define SVG area dimensions
+var svgWidth = 960;
+var svgHeight = 500;
+
+// Define the chart's margins as an object
+var margin = {
+  top: 60,
+  right: 60,
+  bottom: 60,
+  left: 60
+};
+
+// Define dimensions of the chart area
+var chartWidth = svgWidth - margin.left - margin.right;
+var chartHeight = svgHeight - margin.top - margin.bottom;
+
+// Select body, append SVG area to it, and set its dimensions
+var svg = d3.select("body")
+  .append("svg")
+  .attr("width", svgWidth)
+  .attr("height", svgHeight);
+
+// Append a group area, then set its margins
+var chartGroup = svg.append("g")
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+// Configure a parseTime function which will return a new Date object from a string
+var parseTime = d3.timeParse("%d/%m/%Y");
+
+// Load data from forcepoints.csv
+d3.csv("../../Resources/top_ten.csv").then(function(forceData) {
+
+  // Print the forceData
+  console.log(forceData);
+
+  // Format the date and cast the force value to a number
+  topTen.forEach(function (data) {
+    data.date = parseTime(data.date)
+    data.dota_2 = +data.dota_2
+    data.counter_strike = +data.counter_strike
+    data.terraria = +data.terraria
+    data.postal = +data.postal
+    data.gta = +data.gta
+    data.fallout_4 = +data.fallout_4
+    data.life_is_strange = +data.life_is_strange
+    data.battlegrounds = +data.battlegrounds
+    data.hitman_2 = +data.hutman_2
+    data.among_us = +data.among_us;
+});
+
+  // Configure a time scale
+  // d3.extent returns the an array containing the min and max values for the property specified
+  var xTimeScale = d3.scaleTime()
+    .domain(d3.extent(forceData, data => data.date))
+    .range([0, chartWidth]);
+
+  // Configure a linear scale with a range between the chartHeight and 0
+  var yLinearScale = d3.scaleLinear()
+    .domain([0, d3.max(forceData, data => data.force)])
+    .range([chartHeight, 0]);
+
+  // Create two new functions passing the scales in as arguments
+  // These will be used to create the chart's axes
+  var bottomAxis = d3.axisBottom(xTimeScale);
+  var leftAxis = d3.axisLeft(yLinearScale);
+
+  // Configure a line function which will plot the x and y coordinates using our scales
+  var drawLine = d3.line()
+    .x(data => xTimeScale(data.date))
+    .y(data => yLinearScale(data.force));
+
+  // Append an SVG path and plot its points using the line function
+  chartGroup.append("path")
+    // The drawLine function returns the instructions for creating the line for forceData
+    .attr("d", drawLine(forceData))
+    .classed("line", true);
+
+  // Append an SVG group element to the chartGroup, create the left axis inside of it
+  chartGroup.append("g")
+    .classed("axis", true)
+    .call(leftAxis);
+
+  // Append an SVG group element to the chartGroup, create the bottom axis inside of it
+  // Translate the bottom axis to the bottom of the page
+  chartGroup.append("g")
+    .classed("axis", true)
+    .attr("transform", `translate(0, ${chartHeight})`)
+    .call(bottomAxis);
+}).catch(function(error) {
+
 });
