@@ -1,3 +1,7 @@
+
+
+
+
 .jumbotron_image {
   background-image: url("/static/images/jumbotron_background.jpg");
   background-size: cover;
@@ -21,10 +25,11 @@ width: 100%;
  background-color: black;
 }
 
-#mapid,
+#map,
 body,
 html {
   height: 100%;
+  z-index:1000 !Important;
 }
 
 

@@ -120,8 +120,8 @@ def revenue():
     return jsonify(all_names)
 
 
-@app.route("/map")
-def map():
+@app.route("/map_")
+def map_():
     """Return a list of all age names"""
 
     # Query all gamer data

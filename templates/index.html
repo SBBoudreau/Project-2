@@ -5,6 +5,16 @@
   <meta charset="UTF-8">
   <title>Game On</title>
 
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+  <!-- API key -->
+  <script type="text/javascript" src="static/js/config.js"></script>
   <!-- favicon -->
   <link rel="icon" type="image/png" href="static/images/favicon.png" />
   <!-- Boostrap -->
@@ -13,10 +23,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- plotly -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin="" />
 
 
 
@@ -36,15 +42,13 @@
       <!-- <h2><a href="/send">Add your personal gamer stats here!</a></h2> -->
     </div>
     <!-- return back the value in our form, route gamerChoice -->
-
-    <div class="row margin-top-50">
+    <div class="row"></div>
       <div class="col-md-2">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4>Enter your gamer info</h4>
           </div>
           <div class="panel-body">
-
             <form method="POST" action="/gamerChoice" role="form" name="choiceForm" id="choiceForm">
               <label class="col-form-label" for="inputDefault">Name</label>
               <input name="gamerName" type="text" class="form-control" placeholder="ex: Jane Doe" id="inputDefault">
@@ -68,12 +72,8 @@
               <label class="col-form-label" for="inputDefault">Age</label><br>
               <select name="id">
                 {% for age in all_names['age'] %}
-
                 <option name="{{ age }}" value="{{ age }}">{{age}}</option>
-
-
                 {% endfor %}
-
                 <fieldset class="form-group">
                   <label class="col-form-label" for="inputDefault">How many hours do you play per week?</label>
                   <label for="customRange1">Example range</label>
@@ -89,36 +89,37 @@
             </form>
           </div>
         </div>
-
-
       </div>
-      <div class="col-10 myfigure">
-        <div class="row myfigure">
-          <!-- <div class="col">
-            <div id="mapid">
-              <h1>Sadie, the map will go here</h1>
-            </div>
-          </div> -->
-        </div>
-        <div class="row p-3 myfigure">
-          <div class="col-md-6 myfigure">
-            <div id="plot3"></div>
-          </div>
-          <div class="col-md-6 myfigure">
-            <div id="plot2"></div>
-          </div>
-        </div>
-        <div class="row p-3 myfigure">
-          <div class="col myfigure">
-            <div id="plot"></div>
-          </div>
+    </div>
+    <div class="row myfigure">
+      <div class="col-md-10 myfigure">
 
+        <div id="map">
+          <h1>
+
+          </h1>
         </div>
 
       </div>
-
+      <div class="row p-3 myfigure">
+        <div class="col-md-6 myfigure">
+          <div id="plot3"></div>
+        </div>
+        <div class="col-md-6 myfigure">
+          <div id="plot2"></div>
+        </div>
+      </div>
+      <div class="row p-3 myfigure">
+        <div class="col myfigure">
+          <div id="plot"></div>
+        </div>
+      </div>
     </div>
   </div>
+
+
+
+
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
   <!-- Plotly -->
@@ -134,15 +135,10 @@
   <script src="static/js/app-placeholder.js"></script>
   <!-- API key -->
   <script type="text/javascript" src="static/js/config.js"></script>
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
+
 
   <!-- <script src="{{ url_for('static', filename='js/app.js') }}"></script> -->
-
+  </div>
 </body>
 
-  <!-- The div that holds our map -->
-  <div id="mapid"></div>
 </html>
