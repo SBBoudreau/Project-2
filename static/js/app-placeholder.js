@@ -87,75 +87,80 @@ d3.json("/age").then(function (data) {
 /////######THIS CODE WILL NOT WORK UNTIL WE HAVE THE LATLONG FOR COUNTRY,
 ///// ADD COLUMN IN POSTGRES AND IN JUPYTER NOTEBOOK FOR LOADING DATA
 /////THE WE CAN CALL THE COORDS
-// var queryUrl = "/map_"
+var queryUrl = "/map_"
 
 
-// //   // Define a function we want to run once for each feature in the features array
-// function addPopup(data, layer) {
-//     //     // Give each feature a popup describing the place and time of the countries
-//     return layer.bindPopup(`<h3> ${data.countryHours.country} </h3>`);
-// }
+//   // Define a function we want to run once for each feature in the features array
+function addPopup(data, layer) {
+    //     // Give each feature a popup describing the place and time of the countries
+    return layer.bindPopup(`<h3> ${data.countryHours.country} </h3>`);
+}
 
-// // function to receive a layer of markers and plot them on a map.
-// function createMap(countryHours) {
+// function to receive a layer of markers and plot them on a map.
+function createMap(countryHours) {
 
-//     // Define streetmap and darkmap layers
-//     var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-//         maxZoom: 18,
-//         id: "streets-v11",
-//         accessToken: API_KEY
-//     });
+    // Define streetmap and darkmap layers
+    var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+        maxZoom: 18,
+        id: "streets-v11",
+        accessToken: API_KEY
+    });
 
-//     var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-//         maxZoom: 18,
-//         id: "dark-v10",
-//         accessToken: API_KEY
-//     });
+    var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+        maxZoom: 18,
+        id: "dark-v10",
+        accessToken: API_KEY
+    });
 
-//     // Define a baseMaps object to hold our base layers
-//     var baseMaps = {
-//         "Street Map": streetmap,
-//         "Dark Map": darkmap
-//     };
+    // Define a baseMaps object to hold our base layers
+    var baseMaps = {
+        "Street Map": streetmap,
+        "Dark Map": darkmap
+    };
 
-//     // Create overlay object to hold our overlay layer
-//     var overlayMaps = {
-//         "countryHours": countryHours
-//     };
+    // Create overlay object to hold our overlay layer
+    var overlayMaps = {
+        "countryHours": countryHours
+    };
 
-//     // Create our map, giving it the streetmap and country hours layers to display on load
-//     var myMap = L.map("mapid", {
-//         center: [37.09, -95.71],
-//         zoom: 5,
-//         layers: [streetmap, countryHours]
-//     });
+    // Create our map, giving it the streetmap and country hours layers to display on load
+    var myMap = L.map("mapid", {
+        center: [37.09, -95.71],
+        zoom: 5,
+        layers: [streetmap, countryHours]
+    });
 
-//     // Create a layer control
-//     // Pass in our baseMaps and overlayMaps
-//     // Add the layer control to the map
-//     L.control.layers(baseMaps, overlayMaps, {
-//         collapsed: false
-//     }).addTo(myMap);
+    // Create a layer control
+    // Pass in our baseMaps and overlayMaps
+    // Add the layer control to the map
+    L.control.layers(baseMaps, overlayMaps, {
+        collapsed: false
+    }).addTo(myMap);
 
 
-// }
+}
 
 // Creating our initial map object
 // L.map accepts 2 arguments: id of the HTML element to insert the map, and an object containing the initial options for the new map
-var myMap = L.map('map', {
-    center: [29.76, -95.37],
-    zoom: 11
-});
-// Adding a tile layer (the background map image) to our map.
-// Leaflet doesn't have out-of-the-box tile layers, but it allows us to usetile layer APIs. Here, we're using mapbox.
-// We use the addTo method to add objects to our map
-// Documentation for tileLayer:https://leafletjs.com/reference-1.6.0.html#tilelayer
-L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-    maxZoom: 18,
-    id: "streets-v11",
-    accessToken: API_KEY
-}).addTo(myMap);
+// var myMap = L.map('map', {
+//     center: [29.76, -95.37],
+//     zoom: 11
+// });
+// // Adding a tile layer (the background map image) to our map.
+// // Leaflet doesn't have out-of-the-box tile layers, but it allows us to usetile layer APIs. Here, we're using mapbox.
+// // We use the addTo method to add objects to our map
+// // Documentation for tileLayer:https://leafletjs.com/reference-1.6.0.html#tilelayer
+// L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+//     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+//     maxZoom: 18,
+//     id: "streets-v11",
+//     accessToken: API_KEY
+// }).addTo(myMap);
+
+//select html panel element 
+var panel = d3.select("#panel-info")
+// remove any data from the table
+panel.html("");
 
 d3.select('#button').on('click', function () {
     d3.event.preventDefault()
@@ -284,7 +289,7 @@ var chartGroup = svg.append("g")
 var parseTime = d3.timeParse("%d/%m/%Y");
 
 // Load data from forcepoints.csv
-d3.csv("../Resources/top_ten.csv").then(function (topTen) {
+d3.json("/age").then(function (data) {
 
     // Print the forceData
     console.log(topTen);

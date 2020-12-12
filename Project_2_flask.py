@@ -144,6 +144,20 @@ def hours():
     # stuff goes here
     return jsonify(all_names)
 
+@app.route('/top_ten')
+def topTen():
+
+    # Query all gamer data
+    session = Session(engine)
+    df = pd.read_sql_query("SELECT * FROM top_ten", engine)
+    all_names = df.to_dict(orient="list")
+
+    # close the session to end the communication with the database
+    session.close()
+
+    # stuff goes here
+    return jsonify(all_names)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
