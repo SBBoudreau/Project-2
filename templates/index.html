@@ -43,68 +43,70 @@
     <!-- <h2><a href="/send">Add your personal gamer stats here!</a></h2> -->
   </div>
   <!-- return back the value in our form, route gamerChoice -->
-  <div class="row">
-    <!--</div class=container>-->
-    <div class="col-md-8">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4>Enter your gamer info</h4>
-        </div>
-        <div class="panel-body">
-          <form method="POST" action="/gamerChoice" role="form" name="choiceForm" id="choiceForm">
-            <label class="col-form-label" for="inputDefault">Name</label>
-            <input name="gamerName" type="text" class="form-control" placeholder="ex: Jane Doe" id="inputDefault">
-            <br>
-            <label class="col-form-label" for="inputDefault">Gender</label>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Female"
-                  checked="">
-                Female
-              </label>
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="Male">
-                Male
-              </label>
-            </div>
-            <br>
-            <div class="well">
-              <h5></h5>
-              <label class="col-form-label" for="inputDefault">Age</label><br>
-              <select name="id" id="ageSelect">
-                {% for age in all_names['age'] %}
-                <option>{{age}}</option>
-                {% endfor %}
+  <!--</div class=container>-->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>Enter your gamer info</h4>
+          </div>
+          <div class="panel-body">
+            <form method="POST" action="/gamerChoice" role="form" name="choiceForm" id="choiceForm">
+              <label class="col-form-label" for="inputDefault">Name</label>
+              <input name="gamerName" type="text" class="form-control" placeholder="ex: Jane Doe" id="inputDefault">
+              <br>
+              <label class="col-form-label" for="inputDefault">Gender</label>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="Female"
+                    checked="">
+                  Female
+                </label>
+              </div>
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="Male">
+                  Male
+                </label>
+              </div>
+              <br>
+              <div class="well">
+                <h5></h5>
+                <label class="col-form-label" for="inputDefault">Age</label><br>
+                <select name="id" id="ageSelect">
+                  {% for age in all_names['age'] %}
+                  <option>{{age}}</option>
+                  {% endfor %}
 
-              </select>
-            </div>
-            <fieldset class="form-group">
-              <label class="col-form-label" for="inputDefault">How many hours do you play per week?</label>
-              <label for="customRange1">Example range</label>
-              <input type="range" class="custom-range" id="customRange1" value="0" min="0" max="100"
-                oninput="hours_played.value=customRange1.value">
-              <output name="hours_played" id="hours_played">0</output>
-            </fieldset>
-            <br><br>
-            <fieldset>
-              <!-- <button role="button" type="button" class="btn btn-primary">Submit</button> -->
-              <a class="btn btn-primary" id="button" onclick="console.log('I clicked a button')">Submit</a>
-            </fieldset>
-          </form>
+                </select>
+              </div>
+              <fieldset class="form-group">
+                <label class="col-form-label" for="inputDefault">How many hours do you play per week?</label>
+                <label for="customRange1">Example range</label>
+                <input type="range" class="custom-range" id="customRange1" value="0" min="0" max="100"
+                  oninput="hours_played.value=customRange1.value">
+                <output name="hours_played" id="hours_played">0</output>
+              </fieldset>
+              <br><br>
+              <fieldset>
+                <!-- <button role="button" type="button" class="btn btn-primary">Submit</button> -->
+                <a class="btn btn-primary" id="button" onclick="console.log('I clicked a button')">Submit</a>
+              </fieldset>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!--</div>-->
-    <div class="row p-8 myfigure">
+      <!--</div>-->
       <div class="col-md-8 myfigure">
         <div id="plot"></div>
       </div>
+
     </div>
 
-    <div class="row p-3 myfigure">
+
+    <div class="row p-12 myfigure">
       <div class="col-md-4 myfigure">
         <div id="plot2"></div>
       </div>
@@ -119,9 +121,9 @@
       </div>
     </div>
 
-
-
   </div>
+
+
 
 
   <div class="row p-10 myfigure">
