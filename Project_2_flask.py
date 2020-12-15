@@ -145,12 +145,12 @@ def hours():
     return jsonify(all_names)
 
 @app.route('/top_ten')
-def topTen():
+def top_ten():
 
     # Query all gamer data
     session = Session(engine)
     df = pd.read_sql_query("SELECT * FROM top_ten", engine)
-    all_names = df.to_dict(orient="list")
+    all_names = df.to_dict(orient="records")
 
     # close the session to end the communication with the database
     session.close()
@@ -158,6 +158,20 @@ def topTen():
     # stuff goes here
     return jsonify(all_names)
 
+
+@app.route("/mapChart")
+def mapChart():
+    """Return a list of all mapChart"""
+
+    # Query all gamer data
+    session = Session(engine)
+    df = pd.read_sql_query("SELECT * FROM country_hours", engine)
+    all_maphours = df.to_dict(orient="list")
+
+    # close the session to end the communication with the database
+    session.close()
+
+    return render_template("streaming.html", all_names=all_maphours)
 
 if __name__ == '__main__':
     app.run(debug=True)

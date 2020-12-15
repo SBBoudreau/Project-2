@@ -87,75 +87,75 @@ d3.json("/age").then(function (data) {
 /////######THIS CODE WILL NOT WORK UNTIL WE HAVE THE LATLONG FOR COUNTRY,
 ///// ADD COLUMN IN POSTGRES AND IN JUPYTER NOTEBOOK FOR LOADING DATA
 /////THE WE CAN CALL THE COORDS
-var queryUrl = "/map_"
+// var queryUrl = "/mapChart"
 
 
-//   // Define a function we want to run once for each feature in the features array
-function addPopup(data, layer) {
-    //     // Give each feature a popup describing the place and time of the countries
-    return layer.bindPopup(`<h3> ${data.countryHours.country} </h3>`);
-}
+// //   // Define a function we want to run once for each feature in the features array
+// function addPopup(data, layer) {
+//     //     // Give each feature a popup describing the place and time of the countries
+//     return layer.bindPopup(`<h3> ${data.countryHours.country} </h3>`);
+// }
 
-// function to receive a layer of markers and plot them on a map.
-function createMap(countryHours) {
+// // function to receive a layer of markers and plot them on a map.
+// function createMap(countryHours) {
 
-    // Define streetmap and darkmap layers
-    var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-        maxZoom: 18,
-        id: "streets-v11",
-        accessToken: API_KEY
-    });
+//     // Define streetmap and darkmap layers
+//     var streetmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+//         maxZoom: 18,
+//         id: "streets-v11",
+//         accessToken: API_KEY
+//     });
 
-    var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-        maxZoom: 18,
-        id: "dark-v10",
-        accessToken: API_KEY
-    });
+//     var darkmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+//         maxZoom: 18,
+//         id: "dark-v10",
+//         accessToken: API_KEY
+//     });
 
-    // Define a baseMaps object to hold our base layers
-    var baseMaps = {
-        "Street Map": streetmap,
-        "Dark Map": darkmap
-    };
+//     // Define a baseMaps object to hold our base layers
+//     var baseMaps = {
+//         "Street Map": streetmap,
+//         "Dark Map": darkmap
+//     };
 
-    // Create overlay object to hold our overlay layer
-    var overlayMaps = {
-        "countryHours": countryHours
-    };
+//     // Create overlay object to hold our overlay layer
+//     var overlayMaps = {
+//         "countryHours": countryHours
+//     };
 
-    // Create our map, giving it the streetmap and country hours layers to display on load
-    var myMap = L.map("mapid", {
-        center: [37.09, -95.71],
-        zoom: 5,
-        layers: [streetmap, countryHours]
-    });
+//     // Create our map, giving it the streetmap and country hours layers to display on load
+//     var myMap = L.map("map", {
+//         center: [37.09, -95.71],
+//         zoom: 5,
+//         layers: [streetmap, countryHours]
+//     });
 
-    // Create a layer control
-    // Pass in our baseMaps and overlayMaps
-    // Add the layer control to the map
-    L.control.layers(baseMaps, overlayMaps, {
-        collapsed: false
-    }).addTo(myMap);
+//     // Create a layer control
+//     // Pass in our baseMaps and overlayMaps
+//     // Add the layer control to the map
+//     L.control.layers(baseMaps, overlayMaps, {
+//         collapsed: false
+//     }).addTo(myMap);
 
 
-}
+// }
 
 // Creating our initial map object
 // L.map accepts 2 arguments: id of the HTML element to insert the map, and an object containing the initial options for the new map
-// var myMap = L.map('map', {
-//     center: [29.76, -95.37],
-//     zoom: 11
-// });
+var myMap = L.map('map', {
+    center: [29.76, -95.37],
+    zoom: 11
+});
 // // Adding a tile layer (the background map image) to our map.
 // // Leaflet doesn't have out-of-the-box tile layers, but it allows us to usetile layer APIs. Here, we're using mapbox.
 // // We use the addTo method to add objects to our map
 // // Documentation for tileLayer:https://leafletjs.com/reference-1.6.0.html#tilelayer
-// L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-//     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-//     maxZoom: 18,
-//     id: "streets-v11",
-//     accessToken: API_KEY
-// }).addTo(myMap);
+L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+    maxZoom: 18,
+    id: "streets-v11",
+    accessToken: API_KEY
+}).addTo(myMap);
 
 //select html panel element 
 var panel = d3.select("#panel-info")
@@ -245,7 +245,7 @@ d3.select('#button').on('click', function () {
 
             var ageLayout = {
                 title: "Average Weekly Hours Played by Age Group",
-                xaxis: { title: "Country" },
+                xaxis: { title: "Age Group" },
                 yaxis: { title: "Average Weekly Hours Played" },
                 plot_bgcolor: "black",
                 paper_bgcolor: "black",
@@ -276,7 +276,7 @@ var chartWidth = svgWidth - margin.left - margin.right;
 var chartHeight = svgHeight - margin.top - margin.bottom;
 
 // Select body, append SVG area to it, and set its dimensions
-var svg = d3.select("body")
+var svg = d3.select("#plot4")
     .append("svg")
     .attr("width", svgWidth)
     .attr("height", svgHeight);
@@ -286,38 +286,29 @@ var chartGroup = svg.append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Configure a parseTime function which will return a new Date object from a string
-var parseTime = d3.timeParse("%d/%m/%Y");
+var parseTime = d3.isoParse("%b-%d-%Y%H:%M:%S GMT");
 
-// Load data from forcepoints.csv
-d3.json("/age").then(function (data) {
 
-    // Print the forceData
-    console.log(topTen);
+// Load data from json url
+d3.json("/top_ten").then(function (topTen) {
 
+    console.log(topTen)
     // Format the date and cast the force value to a number
     topTen.forEach(function (data) {
-        data.date = parseTime(data.date)
-        data.dota_2 = +data.dota_2
-        data.counter_strike = +data.counter_strike
-        data.terraria = +data.terraria
-        data.postal = +data.postal
-        data.gta = +data.gta
-        data.fallout_4 = +data.fallout_4
-        data.life_is_strange = +data.life_is_strange
-        data.battlegrounds = +data.battlegrounds
-        data.hitman_2 = +data.hutman_2
-        data.among_us = +data.among_us;
+        data.date = data.date
     });
+    console.log(topTen)
+
 
     // Configure a time scale
     // d3.extent returns the an array containing the min and max values for the property specified
     var xTimeScale = d3.scaleTime()
-        .domain(d3.extent(forceData, data => data.date))
+        .domain(d3.extent(topTen, data => data.date))
         .range([0, chartWidth]);
 
     // Configure a linear scale with a range between the chartHeight and 0
     var yLinearScale = d3.scaleLinear()
-        .domain([0, d3.max(topTen, data => data.gta)])
+        .domain([0, d3.max(topTen, data => data.dota_2)])
         .range([chartHeight, 0]);
 
     // Create two new functions passing the scales in as arguments
@@ -328,11 +319,11 @@ d3.json("/age").then(function (data) {
     // Configure a line function which will plot the x and y coordinates using our scales
     var drawLine = d3.line()
         .x(data => xTimeScale(data.date))
-        .y(data => yLinearScale(data.gta));
+        .y(data => yLinearScale(data.dota_2));
 
     // Append an SVG path and plot its points using the line function
     chartGroup.append("path")
-        // The drawLine function returns the instructions for creating the line for forceData
+        // The drawLine function returns the instructions for creating the line for gta data
         .attr("d", drawLine(topTen))
         .classed("line", true);
 
@@ -348,5 +339,6 @@ d3.json("/age").then(function (data) {
         .attr("transform", `translate(0, ${chartHeight})`)
         .call(bottomAxis);
 }).catch(function (error) {
+    console.log(error)
     console.log("there is an error")
 });
