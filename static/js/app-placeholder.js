@@ -112,7 +112,7 @@ d3.json(queryUrl, function (data) {
         },
         onEachFeature: addPopup
     });
-
+               
     createMap(countryHours);
 });
 
