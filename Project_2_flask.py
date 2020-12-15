@@ -25,7 +25,7 @@ app = Flask(__name__)
 pg_user = 'postgres'
 db_name = 'Gamers'
 
-connection_string = f"{pg_user}:bootcampDavid@1942@localhost:5432/{db_name}"
+connection_string = f"{pg_user}:Jennifer11@localhost:5432/{db_name}"
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{connection_string}'
 db = SQLAlchemy(app)
 db.init_app(app)
@@ -68,27 +68,7 @@ def gamerChoice():
     genderOption = request.form["optionsRadios"]
     print(genderOption)
 
-#     # do another query to pull data associated with the age range choice
-
-#  # Query all gamer data
-#     session = Session(engine)
-#     df_age = pd.read_sql_query("SELECT * FROM age", engine)
-#     all_names = df_age.to_dict(orient="list")
-
-#     # close the session to end the communication with the database
-#     session.close()
-
-    # # Convert list of tuples into normal list
-    # all_names = list(np.ravel(results))
-    # print(all_names)
-    # if request.method == "POST":
-    #     # put all your input info into the database
-    #     # {
-    #     # 'name':request.form['gamerName'],
-    #     # 'location':request.form['location']
-    #     # return jsonify(all_names)
-    #     return render_template("index.html", all_names=all_names)
-
+#     
 
 @app.route("/age")
 def age():
@@ -120,8 +100,8 @@ def revenue():
     return jsonify(all_names)
 
 
-@app.route("/maphours")
-def maphours():
+@app.route("/map_")
+def map_():
     """Return a list of all age names"""
 
     # Query all gamer data
@@ -156,6 +136,20 @@ def hours():
     # Query all gamer data
     session = Session(engine)
     df = pd.read_sql_query("SELECT * FROM hours_average_country", engine)
+    all_names = df.to_dict(orient="list")
+
+    # close the session to end the communication with the database
+    session.close()
+
+    # stuff goes here
+    return jsonify(all_names)
+
+@app.route('/top_ten')
+def topTen():
+
+    # Query all gamer data
+    session = Session(engine)
+    df = pd.read_sql_query("SELECT * FROM top_ten", engine)
     all_names = df.to_dict(orient="list")
 
     # close the session to end the communication with the database
