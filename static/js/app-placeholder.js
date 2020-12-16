@@ -286,13 +286,13 @@ var chartGroup = svg.append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Configure a parseTime function which will return a new Date object from a string
-var parseTime = d3.isoParse("%b-%d-%Y%H:%M:%S GMT");
+var parseTime = d3.timeParse("%m/%d/%Y");
 
 
 // Load data from json url
 d3.json("/top_ten").then(function (topTen) {
-
-    console.log(topTen)
+    
+    console.log(topTen);
     // Format the date and cast the force value to a number
     topTen.forEach(function (data) {
         data.date = parseTime(data.date);

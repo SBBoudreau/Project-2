@@ -150,6 +150,11 @@ def top_ten():
     # Query all gamer data
     session = Session(engine)
     df = pd.read_sql_query("SELECT * FROM top_ten", engine)
+    df = df.iloc[0:5]
+
+    df.date = pd.to_datetime(df.date, utc=True, format="%Y-%b-%d")
+    print(df.date.head())
+    # df.date=df.date.dt.strftime("%Y-%d-%b")
     all_names = df.to_dict(orient="records")
 
     # close the session to end the communication with the database
