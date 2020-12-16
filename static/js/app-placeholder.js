@@ -164,7 +164,9 @@ panel.html("");
 
 d3.select('#button').on('click', function () {
     d3.event.preventDefault()
-    d3.json('http://api.ipstack.com/check?access_key=a8658fb86540d316778f17b3e00f1463&format=1').header("Access-Control-Allow-Origin", "*").then(function (countryData) {
+
+    // This call only works locally but fails on heroku due to same origin request error (http vs https)
+    d3.json('http://api.ipstack.com/check?access_key=a8658fb86540d316778f17b3e00f1463&format=1').then(function (countryData) {
         var country = countryData.country_name
         console.log(country)
         var coordinates = [countryData.latitude, countryData.longitude]
