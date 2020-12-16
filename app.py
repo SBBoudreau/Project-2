@@ -20,13 +20,13 @@ from flask import (
 app = Flask(__name__)
 
 #################################################
-# Jennifer Postgres
+# Heroku Postgres
 #################################################
 pg_user = 'postgres'
 db_name = 'Gamers'
 
-connection_string = f"{pg_user}:Jennifer11@localhost:5432/{db_name}"
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{connection_string}'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgres://jrpkuqconjtgyi:9064eee9d802e0565098da64a8ac7840cb9a1fae6f38216aaa3558dcbd78f10e@ec2-54-205-26-79.compute-1.amazonaws.com:5432/d1jq8j6quu52kd"
 db = SQLAlchemy(app)
 db.init_app(app)
 engine = db.engine
@@ -68,7 +68,8 @@ def gamerChoice():
     genderOption = request.form["optionsRadios"]
     print(genderOption)
 
-#     
+#
+
 
 @app.route("/age")
 def age():
@@ -144,6 +145,7 @@ def hours():
     # stuff goes here
     return jsonify(all_names)
 
+
 @app.route('/top_ten')
 def top_ten():
 
@@ -178,5 +180,6 @@ def mapChart():
 
     return render_template("streaming.html", all_names=all_maphours)
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
